@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="es">
+    <meta charset="UTF-8">
+    <title>Appoya MX</title>
+</head>
+<body>
+<header>
+    <h1>{{title}}</h1>
+    <nav id="mainNav"></nav>
+</header>
+<div ng-view></div>
+<script type="text/javascript" src="js/Utils.js"></script>
+<script type="text/javascript" src="libs/angular.min.js"></script>
+<script type="text/javascript" src="libs/angular-route.min.js"></script>
+<script type="text/javascript" src="libs/angular-cookies.min.js"></script>
+<script type="text/javascript" src="js/Main.js"></script>
+<script type="text/javascript">
+    angular.bootstrap(document, ['Main']);
+</script>
+</body>
+</html>
