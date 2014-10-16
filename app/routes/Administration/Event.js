@@ -76,6 +76,7 @@ var api = {
             .post(function (req, res) {
 
                 function events(cycles, cb) {
+                    var date = new Date();
                    Event.count({$and: [
                         {$or:[
                             {'beginning':{$lte:date}},
