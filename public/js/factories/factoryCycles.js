@@ -2,8 +2,8 @@ app.factory('FactoryCycles', ['$http',
     function ($http) {
 
         var _cycles = {};
-        var _urlBase = '/api/administration/cycles/';
-        var _urlBaseOne = '/api/administration/cycle/';
+        var _urlBase = '/api/cycles/';
+        var _urlBaseOne = '/api/cycle/';
 
 
         _cycles.getOne = function(_id)

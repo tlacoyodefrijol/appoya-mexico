@@ -1,23 +1,22 @@
 var express = require('express');
+var root = './public';
+var User = require('../models/User');
 
 module.exports = (function () {
 
     var router = express.Router();
 
-    router.use(function (req, res, next) {
-        next();
-    });
     router.route('/*')
-        .get(function (req, res) {
-            res.render('html', {view: 'html/home'}, function (err, html) {
-                if (err) {
-                    console.log('error: ', err);
-                }
-                else {
-                    res.send(html);
-                }
-            });
+        .get(function (req, res, next) {
+            if (req.session.userId === undefined && req.url !== '/') {
+                res.redirect('/');
+            }
+            else if (req.session.userId !== undefined && req.url === '/') {
+                res.redirect('/dashboard');
+            }
+            else {
+                //res.sendFile('index.html', {'root': root});
+            }
         });
-
     return router;
 })();

@@ -2,8 +2,8 @@ app.factory('FactoryUsers', ['$http',
     function ($http) {
 
         var _users = {};
-        var _urlBase = '/api/administration/users/';
-        var _urlBaseOne = '/api/administration/user/';
+        var _urlBase = '/api/users/';
+        var _urlBaseOne = '/api/user/';
 
 
         _users.getOne = function(_id)

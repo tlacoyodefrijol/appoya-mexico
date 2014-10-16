@@ -3,9 +3,11 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var express = require('express');
 var path = require('path');
+var db = require('./app/connection/db');
 
 var appoya = express();
 var port = process.env.PORT || 8080;
+
 
 appoya.use(bodyParser.json());
 appoya.use(bodyParser.urlencoded({extended: true}));
@@ -17,9 +19,11 @@ appoya.use(session({
 }));
 
 var routerApi   = require('./app/routes/Api');
+var routerSite   = require('./app/routes/Site');
 
-appoya.use('/api', routerApi);
 appoya.use(express.static(__dirname + '/public'));
 
+appoya.use('/api', routerApi);
+appoya.use('/', routerSite);
 
 appoya.listen(port);
