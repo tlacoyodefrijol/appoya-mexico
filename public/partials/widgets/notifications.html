@@ -1,0 +1,10 @@
+<section id="sectionMessages">
+    <h2>Avisos</h2>
+    <ul ng-controller="ControllerNotifications">
+        <li ng-repeat="notification in notifications">
+            <a href="/panel/notification/message/{{notification._id}}">{{notification.message.subject}}</a>
+        </li>
+    </ul>
+    <a href="/panel/notification/compose">Crear avisos</a>
+    <a href="/panel/program">Más avisos</a>
+</section>
