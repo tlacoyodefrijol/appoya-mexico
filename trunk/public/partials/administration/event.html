@@ -1,0 +1,51 @@
+<div data-ng-controller="ControllerGroup" data-ng-init="updateLists()">
+    <h2>{{group.name}}</h2>
+
+    <form>
+        <h3>Editar datos del grupo</h3>
+        Nombre: <input type="text" data-ng-model="groupName"/>
+        Ciclo:
+        <select name="cycleList"
+                data-ng-model="listCycle"
+                data-ng-options="option.name for option in cycleOptions">
+        </select>
+        <button data-ng-click="updateInfo()">Guardar</button>
+    </form>
+    {{messageUpdate}}
+    <form>
+        <fieldset>
+            <h3>Buscar usuario por:</h3>
+            <select name="userProfileType"
+                    data-ng-model="profileType"
+                    data-ng-options="option.name for option in profileTypeOptions"
+                    data-ng-init="profileType=profileTypeOptions[0]"
+                    data-ng-change="clearFields()">
+            </select>
+        </fieldset>
+        <fieldset>
+            <label>Nombre del usuario</label>
+            <input name="input" data-ng-model="fieldUser" data-ng-change="searchUser()">
+        </fieldset>
+    </form>
+    {{messageSearch}}
+    <ul>
+        <li data-ng-repeat="user in availableUsers">{{user.name}} {{user.lastname}}
+            <button data-ng-click="enrollUser(user)">Enrolar</button>
+        </li>
+    </ul>
+
+    <h3>Lista de Alumnos</h3>
+    <ul>
+        <li data-ng-repeat="student in studentList"><a href="/panel/administration/user/{{student.user.id}}">{{student.user.name}}
+            {{student.user.lastname}}</a>
+            <button data-ng-click="withdrawUser(student.id)">Retirar</button>
+        </li>
+    </ul>
+    <h3>Lista de Profesores</h3>
+    <ul>
+        <li data-ng-repeat="teacher in teacherList"><a href="/panel/administration/user/{{teacher.user.id}}">{{teacher.user.name}}
+            {{teacher.user.lastname}}</a>
+            <button data-ng-click="withdrawUser(teacher.id)">Retirar</button>
+        </li>
+    </ul>
+</div>

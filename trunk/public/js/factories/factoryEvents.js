@@ -1,12 +1,12 @@
-app.factory('FactoryGroups', ['$http',
+app.factory('FactoryEvents', ['$http',
     function ($http) {
 
-        var _groups = {};
-        var _urlBase = '/api/groups/';
-        var _urlBaseOne = '/api/group/';
+        var _events = {};
+        var _urlBase = '/api/events/';
+        var _urlBaseOne = '/api/event/';
 
 
-        _groups.getOne = function(_id)
+        _events.getOne = function(_id)
         {
             return $http({
                 method: 'post',
@@ -15,7 +15,7 @@ app.factory('FactoryGroups', ['$http',
             });
         };
 
-        _groups.addOne = function (obj) {
+        _events.addOne = function (obj) {
             return $http({
                 method: 'post',
                 url: _urlBaseOne + 'add',
@@ -23,7 +23,7 @@ app.factory('FactoryGroups', ['$http',
             });
         };
 
-        _groups.updateOne = function(obj)
+        _events.updateOne = function(obj)
         {
             return $http({
                 method: 'post',
@@ -32,7 +32,7 @@ app.factory('FactoryGroups', ['$http',
             });
         };
 
-        _groups.deleteOne = function(_id)
+        _events.deleteOne = function(_id)
         {
             return $http({
                 method: 'post',
@@ -41,7 +41,7 @@ app.factory('FactoryGroups', ['$http',
             });
         };
 
-        _groups.enrollOne = function(obj)
+        _events.enrollOne = function(obj)
         {
             return $http({
                 method: 'post',
@@ -49,7 +49,7 @@ app.factory('FactoryGroups', ['$http',
                 data: obj
             });
         };
-        _groups.withdrawOne = function(_id)
+        _events.withdrawOne = function(_id)
         {
             return $http({
                 method: 'post',
@@ -57,7 +57,7 @@ app.factory('FactoryGroups', ['$http',
                 data: {id: _id}
             });
         };
-        _groups.enrollments = function(obj)
+        _events.enrollments = function(obj)
         {
             return $http({
                 method: 'post',
@@ -65,19 +65,19 @@ app.factory('FactoryGroups', ['$http',
                 data: obj
             });
         };
-        _groups.get = function (_obj) {
+        _events.get = function (_obj) {
             return $http({
                 method: 'post',
                 url: _urlBase,
                 data: _obj
             });
         };
-        _groups.count = function () {
+        _events.count = function () {
             return $http({
                 method: 'post',
                 url: _urlBase+'count/active'
             });
         };
 
-        return _groups;
+        return _events;
     }]);

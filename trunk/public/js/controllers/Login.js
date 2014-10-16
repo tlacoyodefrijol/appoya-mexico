@@ -4,7 +4,7 @@ app.controller('ControllerLogin', ['$scope', '$http', '$location', '$route', '$c
         $scope.doLogin = function () {
             $http({
                 method: 'post',
-                url: '/api/panel/login',
+                url: '/api/login',
                 data: $scope.user
             })
                 .success(function (data, status) {
@@ -16,7 +16,7 @@ app.controller('ControllerLogin', ['$scope', '$http', '$location', '$route', '$c
                         $cookieStore.put('viewAs',data.data[0].id);
                         $cookieStore.put('profiles',data.data);
                         //$location.url('/panel/dashboard');
-                        $location.path(app.baseURL+'/dashboard').replace();
+                        $location.path(app.baseURL+'dashboard').replace();
                         //window.location.href = '/panel/dashboard';
                     }
                 });

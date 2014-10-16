@@ -1,0 +1,27 @@
+<div data-ng-controller="ControllerGroups" data-ng-init="init()">
+    <h2>Grupos</h2>
+    <h3>Agregar grupo</h3>
+    <form name="addGroupForm" method="post" data-ng-submit="addGroup()">
+        <fieldset>
+            <label>Nombre del grupo</label>
+            <input type="text" name="groupName" data-ng-model="group.name" required/>
+            <label>Ciclo</label>
+            <select name="groupCycle"
+                    data-ng-model="groupCycle"
+                    data-ng-options="cycle.id as cycle.name for cycle in cycles"></select>
+        </fieldset>
+        <button type="submit">Agregar</button>
+    </form>
+    {{messageGroup}}<br/>
+
+    <h3>Lista de grupos</h3>
+    <label>Ver grupos</label>
+    <select name="cycleList"
+            data-ng-model="listCycle"
+            data-ng-options="cycle.name for cycle in selectCycles"
+            data-ng-change="updateGroups()">
+    </select>
+    <ul>
+        <li data-ng-repeat="group in groups"><a href="/panel/administration/group/{{group.id}}">{{group.name}} ({{group.cycle.name}})</a><button data-ng-click="deleteGroup(group.id)">Eliminar</button></li>
+    </ul>
+</div>
