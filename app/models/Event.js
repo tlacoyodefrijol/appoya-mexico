@@ -6,7 +6,7 @@ var Schema = mongoose.Schema;
 var schemaEvent = new Schema({
         name: String,
         beginning: Date,
-        end: Date,
+        end: Date
     },
     {collection:"Event"});
 
@@ -17,5 +17,26 @@ schemaEvent.set('toJSON',
             delete ret._id;
         }
     });
+
+schemaEvent.statics.getActive = function(fields, cb)
+{
+    this.getActiveOn(fields, new Date(), cb);
+};
+
+schemaEvent.statics.getActiveOn = function(fields, date,cb)
+{
+    this.find(
+        {$and: [
+            {$or:[
+                {'beginning':{$lte:date}},
+                {'beginning':null}
+            ]},
+            {$or:[   {'end':{$gte:date}},
+                {'end':null}
+            ]}
+        ]},
+        fields,
+        cb);
+};
 
 module.exports = mongoose.model('Event', schemaEvent);

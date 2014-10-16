@@ -19,7 +19,7 @@ schemaCycle.set('toJSON',
 schemaCycle.statics.getActive = function(fields, cb)
 {
     this.getActiveOn(fields, new Date(), cb);
-}
+};
 schemaCycle.statics.getActiveOn = function(fields, date, cb)
 {
     this.find(
@@ -34,6 +34,6 @@ schemaCycle.statics.getActiveOn = function(fields, date, cb)
         ]},
         fields,
         cb);
-}
+};
 
 module.exports = mongoose.model('Cycle', schemaCycle);
