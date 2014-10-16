@@ -1,0 +1,26 @@
+.statistic {
+  background-color: @colorMain;
+  .boxSizing;
+  color: #FFF;
+  display: block;
+  float: left;
+  line-height: 1.25;
+  margin-right: 1%;
+  margin-bottom: 1em;
+  padding: 1em;
+  text-align: center;
+  text-decoration: none;
+  width: 32%;
+  .transition(background-color .5s);
+  .embossLightText;
+  &:last-child {
+    margin-right: 0;
+  }
+  &:hover{
+    background-color: lighten(@colorMain, 10);
+  }
+  span {
+    display: block;
+    font-size: 4em;
+  }
+}

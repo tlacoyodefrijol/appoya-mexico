@@ -1,0 +1,9 @@
+<h2>Crear notificación</h2>
+<form name="sendMessageForm" method="post" ng-submit="sendMessage()">
+    <label for="subject">Asunto</label>
+    <input type="text" name="subject" ng-model="notification.subject" required/>
+    <label for="content">Mensaje</label>
+    <textarea name="content" ng-model="notification.content"></textarea>
+    <button type="submit">Enviar</button>
+</form>
+{{message}}

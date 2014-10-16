@@ -1,0 +1,52 @@
+button, input[type=button] {
+  .removeSkin;
+  .boxSizing;
+  background-color: @colorMain;
+  color: #FFF;
+  font-family: 'Open Sans Regular', sans-serif;
+  font-size: 1em;
+  padding: .625em;
+  text-align: center;
+}
+
+select {
+  font-family: 'Open Sans Regular', sans-serif;
+  font-size: 1em;
+}
+
+input {
+  &[type=text], &[type=password] {
+    .removeSkin;
+    .boxSizing;
+    border: solid @colorGray .0625em;
+    font-family: 'Open Sans Regular', sans-serif;
+    font-size: 1em;
+    padding: .5em;
+  }
+}
+
+form {
+  .boxSizing;
+  .dropShadow(@x:0, @y:.125em, @opacity:.25);
+  padding: 1em;
+  margin-bottom: 1em;
+  label {
+    color: @colorDarkGray;
+    display: block;
+    font-weight: bold;
+  }
+  select, button {
+    margin-bottom: 1em;
+  }
+  input {
+    &[type=text], &[type=password] {
+      display: block;
+      margin-bottom: 1em;
+      width: 100%;
+    }
+  }
+}
+
+#quickAddUser {
+
+}

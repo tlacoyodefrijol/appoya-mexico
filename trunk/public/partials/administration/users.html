@@ -1,0 +1,39 @@
+<div id="contentContainer" data-ng-controller="ControllerUsers" data-ng-init="updateList()">
+    <h2>Crear {{role}}</h2>
+
+    <form id="quickAddUser" name="addUserForm" method="post" data-ng-submit="addUser()" class="clearfix">
+        <label for="quName">Nombre</label>
+        <input id="quName" type="text" name="userName" data-ng-model="user.name" required/>
+        <label for="quLastName">Apellidos</label>
+        <input id="quLastName" type="text" name="userLastName" data-ng-model="user.lastname" required/>
+        <label for="quUsername">Nombre de usuario</label>
+        <input id="quUsername" type="text" name="userName" data-ng-model="user.username" required/>
+        <label for="quSecretword">Contraseña</label>
+        <input id="quSecretword" type="password" name="userPassword" data-ng-model="user.secretword" required/>
+        <button type="submit" class="right">Agregar</button>
+    </form>
+    {{message}}<br/>
+
+    <h2>Lista de {{role}}</h2>
+
+    <form>
+        <label>Mostrar</label>
+        <select name="listStatus"
+                data-ng-model="listStatus"
+                data-ng-options="status.name for status in selectStatus"
+                data-ng-init="listStatus=selectStatus[0]"
+                data-ng-change="updateList()">
+        </select>
+        <label>Nombre del {{role}}</label>
+        <input name="input" type="text" data-ng-model="fieldStudent" ng-change="predictUser()">
+    </form>
+    <ul class="filterList">
+        <li data-ng-repeat="user in users">
+            <a href="/panel/administration/user/{{user.id}}" class="clearfix">
+                <div class="left">
+                <span class="title">{{user.name}} {{user.lastname }}</span>
+                </div>
+            </a>
+        </li>
+    </ul>
+</div>

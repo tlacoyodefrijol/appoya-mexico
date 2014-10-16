@@ -1,0 +1,6 @@
+<section id="sectionViewAs" data-ng-controller="ControllerViewSwitcher">
+    <h3>Vista</h3>
+    <select data-ng-model="viewSwitcher"
+            data-ng-options="profile.role for profile in profiles"
+           data-ng-change="updateView()"></select>
+</section>

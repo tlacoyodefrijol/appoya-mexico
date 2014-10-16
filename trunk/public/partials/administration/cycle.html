@@ -1,0 +1,12 @@
+<div data-ng-controller="ControllerCycle">
+    <h2>{{cycle.name}}</h2>
+</div>
+<div data-ng-controller="ControllerGroups" ng-init="updateGroups(cycleId)">
+    <h2>Grupos</h2>
+
+    <h3>Lista de grupos</h3>
+    <ul>
+        <li data-ng-repeat="group in groups"><a href="/panel/administration/group/{{group.id}}">{{group.name}}
+            ({{group.cycle.name}})</a></li>
+    </ul>
+</div>

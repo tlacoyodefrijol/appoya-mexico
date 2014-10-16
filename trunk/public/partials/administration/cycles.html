@@ -1,0 +1,28 @@
+<div data-ng-controller="ControllerCycles">
+    <h2>Ciclos</h2>
+
+    <h3>Crear Ciclo</h3>
+
+    <form name="addCycleForm" method="post" data-ng-submit="addCycle()">
+        <label>Nombre del ciclo</label>
+        <input type="text" name="cycleName" data-ng-model="cycle.name" required/>
+        <label>Fecha de entrada</label>
+        <input type="date" name="cycleDateBegin" data-ng-model="cycle.beginning" required/>
+        <label>Fecha de salida</label>
+        <input type="date" name="cycleDateEnd" data-ng-model="cycle.end" required/>
+        <button type="submit">Agregar</button>
+    </form>
+    {{messageCycle}}<br/>
+
+    <h3>Lista de ciclos</h3>
+    <label>Ver ciclos</label>
+    <select name="cycleList"
+            data-ng-model="listCycle"
+            data-ng-options="option.name for option in cycleOptions"
+            data-ng-init="listCycle=cycleOptions[1]"
+            data-ng-change="updateCycles()">
+    </select>
+    <ul>
+        <li data-ng-repeat="cycle in cycles"><a href="/panel/administration/cycle/{{cycle.id}}">{{cycle.name}}</a></li>
+    </ul>
+</div>
