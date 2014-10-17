@@ -7,7 +7,8 @@ module.exports = (function () {
     var router = express.Router();
 
     router.route('/*')
-        .get(function (req, res, next) {
+        .all(function (req, res, next) {
+            console.log('')
             if (req.session.userId === undefined && req.url !== '/') {
                 res.redirect('/');
             }
@@ -16,6 +17,7 @@ module.exports = (function () {
             }
             else {
                 //res.sendFile('index.html', {'root': root});
+                res.sendFile('index.html', {'root': root});
             }
         });
     return router;

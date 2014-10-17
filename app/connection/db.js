@@ -4,7 +4,7 @@ var User = require('../models/User');
 var Profile = require('../models/Profile');
 
 mongoose.connect('mongodb://localhost/appoyamx');
-mongoose.set('debug', true);
+//mongoose.set('debug', true);
 
 dbConnection.on('error', console.error.bind(console, 'connection error:'));
 dbConnection.once('open', function () {

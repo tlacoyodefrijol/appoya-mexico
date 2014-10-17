@@ -1,51 +1,37 @@
-app.controller('ControllerEvents', ['$scope', 'FactoryGroups', 'FactoryCycles',
-    function ($scope, FactoryGroups, FactoryCycles) {
+app.controller('ControllerEvents', ['$scope', 'FactoryGroups',
+    function ($scope, FactoryEvents) {
         var defaultVal = [{id: 'all', name: 'Todos'}, {id: 'active', name: 'Activos'}];
 
         $scope.init = function () {
-
-            FactoryCycles.get({status:'available'})
+            FactoryEvents.get({status: 'active'})
                 .success(function (data) {
-                    $scope.cycles = data.data;
-                    $scope.selectCycles = defaultVal.concat(data.data);
-                    $scope.groupCycle = $scope.cycles[0].id;
-                    $scope.listCycle = $scope.selectCycles[1];
-                });
-            FactoryGroups.get({status:'active'})
-                .success(function (data) {
-                    $scope.groups = data.data;
+                    $scope.events = data.data;
                 });
         };
 
         $scope.addGroup = function () {
-            $scope.group.cycle = $scope.groupCycle;
-            $scope.group.level = '000000000000000000000000';
-            FactoryGroups.addOne($scope.group).success(function (data, status) {
-                $scope.messageGroup = data.info;
-                $scope.updateGroups();
-            });
+            var _begin = new Date($scope.event.beginning);
+            var _end = new Date($scope.event.end);
+            if (_end >= _begin) {
+                FactoryEvents.addOne($scope.event)
+                    .success(function (data, status) {
+                        $scope.messageEvent = data.info;
+                        $scope.updateGroups();
+                    });
+            }
+            else {
+                $scope.messageEvent = 'La fecha de entrada debe de ser menor a la de salida';
+            }
         };
         $scope.updateGroups = function (data) {
-            var _grp;
-            if (typeof(data) !== 'undefined') {
-                _grp = {cycle: data};
-            } else {
-                if ($scope.listCycle.id === 'all') {
-                    _grp = {status: 'all'}
-                } else if ($scope.listCycle.id === 'active') {
-                    _grp = {status: 'active'}
-                } else {
-                    _grp = {cycle: $scope.listCycle.id};
-                }
-            }
-            FactoryGroups.get(_grp)
+            FactoryEvents.get()
                 .success(function (data) {
-                    $scope.groups = data.data;
+                    $scope.events = data.data;
                 });
         };
 
         $scope.deleteGroup = function (data) {
-            FactoryGroups.deleteOne(data)
+            FactoryEvents.deleteOne(data)
                 .success(function (data) {
                     $scope.updateGroups();
                 });
