@@ -75,19 +75,6 @@ var api = {
         router.route('/events/count/active')
             .post(function (req, res) {
 
-                function events(cycles, cb) {
-                    var date = new Date();
-                   Event.count({$and: [
-                        {$or:[
-                            {'beginning':{$lte:date}},
-                            {'beginning':null}
-                        ]},
-                        {$or:[   {'end':{$gte:date}},
-                            {'end':null}
-                        ]}
-                    ]},cb);
-                }
-
                 function cb(err, result) {
                     var ro = new ResultObject();
                     if (err) {
@@ -102,7 +89,17 @@ var api = {
                     res.json(ro);
                 }
 
-                async.waterfall([events], cb);
+                var date = new Date();
+                Event.count({$and: [
+                    {$or:[
+                        {'beginning':{$lte:date}},
+                        {'beginning':null}
+                    ]},
+                    {$or:[   {'end':{$gte:date}},
+                        {'end':null}
+                    ]}
+                ]}).exec(cb);
+
             });
         router.route('/event')
             .post(function (req, res) {
