@@ -88,9 +88,11 @@ app.run(function ($rootScope, $location, $cookieStore) {
         var _url = $location.url();
         $rootScope.showNav = false;
         if (_profile === 'undefined' && _url !== app.baseURL) {
+            console.log('if')
             $location.path(app.baseURL).replace();
         }
         else if (_profile !== 'undefined' && _url === app.baseURL) {
+            console.log('else if')
             $location.path(app.baseURL+'dashboard').replace();
         }
         if (_url !== app.baseURL) {

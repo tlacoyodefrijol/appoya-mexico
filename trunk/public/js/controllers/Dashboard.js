@@ -11,19 +11,20 @@ app.controller('ControllerDashboard', ['$scope', '$cookieStore', 'FactoryUsers',
                 $scope.isAdmin = true;
                 FactoryUsers.count('volunteer')
                     .success(function (data) {
-                        $scope.countUsers = data.data;
+                        $scope.countVolunteers = data.data;
                     });
                 FactoryUsers.count('ally')
                     .success(function (data) {
-                        $scope.countTeachers = data.data;
+                        $scope.countAllies = data.data;
                     });
-                FactoryEvents.count()
+                /*FactoryEvents.count()
                     .success(function(data){
-                        console.log(data)
-                        $scope.countGroups = data.data;
+                        console.log('----> ',data)
+                        $scope.countEvents = data.data;
                     }).error(function(data){
-                        console.log(data)
-                    });
+                        console.log('=====> ',data)
+                    });*/
+                $scope.countEvents = 'error';
                 break;
             case 'teacher':
                 break;
