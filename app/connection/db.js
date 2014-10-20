@@ -22,15 +22,15 @@ dbConnection.once('open', function () {
             });
 
             _profile = new Profile();
-            _profile._id = 'secretariat';
+            _profile._id = 'secretaria';
             _profile.save();
 
             _profile = new Profile();
-            _profile._id = 'ally';
+            _profile._id = 'aliado';
             _profile.save();
 
             _profile = new Profile();
-            _profile._id = 'volunteer';
+            _profile._id = 'voluntario';
             _profile.save();
         }
     });

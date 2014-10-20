@@ -1,14 +1,14 @@
-<div data-ng-controller="ControllerEvents" data-ng-init="init()">
+<div id="contentContainer" data-ng-controller="ControllerEvents" data-ng-init="init()">
     <h2>Eventos</h2>
 
     <h3>Agregar evento</h3>
 
-    <form name="addGroupForm" method="post" data-ng-submit="addGroup()">
+    <form name="addEventForm" method="post" data-ng-submit="addEvent()">
         <label>Nombre del evento</label>
         <input type="text" name="groupName" data-ng-model="event.name" required/>
-        <label>Fecha de entrada</label>
+        <label>Fecha de inicio</label>
         <input type="date" name="cycleDateBegin" data-ng-model="event.beginning" required/>
-        <label>Fecha de salida</label>
+        <label>Fecha de fin</label>
         <input type="date" name="cycleDateEnd" data-ng-model="event.end" required/>
         <button type="submit">Agregar</button>
     </form>
@@ -16,8 +16,8 @@
 
     <h3>Lista de eventos</h3>
     <ul>
-        <li data-ng-repeat="event in events"><a href="/panel/administration/group/{{event.id}}">{{event.name}}</a>
-            <button data-ng-click="deleteGroup(group.id)">Eliminar</button>
+        <li data-ng-repeat="event in events"><a href="/evento/{{event.id}}">{{event.name}}</a>
+            <button data-ng-click="deleteEvent(event.id)">Eliminar</button>
         </li>
     </ul>
 </div>

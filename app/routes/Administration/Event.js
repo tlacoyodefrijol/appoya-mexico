@@ -7,15 +7,12 @@ var ResultObject = require('../../utils/ResultObject');
 var async = require('async');
 
 var api = {
-    init: function (router)
-    {
+    init: function (router) {
         router.route('/events')
-            .post(function (req, res)
-            {
-                if(typeof req.body.status == 'undefined')
-                {
-                    res.send(new ResultObject(false,null,"Es necesario un status para la busqueda"
-                        ,ResultObject.prototype.BAD_REQUEST));
+            .post(function (req, res) {
+                if (typeof req.body.status == 'undefined') {
+                    res.send(new ResultObject(false, null, "Es necesario un status para la busqueda"
+                        , ResultObject.prototype.BAD_REQUEST));
                     return;
                 }
 
@@ -26,29 +23,48 @@ var api = {
                 var query;
                 var date = new Date();
 
-                switch(req.body.status)
-                {
+                switch (req.body.status) {
                     case 'active':
-                        queryparams = {$and: [
-                            {$or:[
-                                {'beginning':{$lte:date}},
-                                {'beginning':null}
-                            ]},
-                            {$or:[   {'end':{$gte:date}},
-                                {'end':null}
-                            ]}
-                        ]};
+                        queryparams = {
+                            $and: [
+                                {
+                                    $or: [
+                                        {'beginning': {$lte: date}},
+                                        {'beginning': null}
+                                    ]
+                                },
+                                {
+                                    $or: [{'end': {$gte: date}},
+                                        {'end': null}
+                                    ]
+                                }
+                            ]
+                        };
                         break;
                     case 'inactive':
-                        queryparams = {$and: [
-                            {$nor:[
-                                {'beginning':{$lte:date}},
-                                {'beginning':null}
-                            ]},
-                            {$nor:[   {'end':{$gte:date}},
-                                {'end':null}
-                            ]}
-                        ]};
+                        queryparams = {
+                            $and: [
+                                {
+                                    $nor: [
+                                        {'beginning': {$lte: date}},
+                                        {'beginning': null}
+                                    ]
+                                },
+                                {
+                                    $nor: [{'end': {$gte: date}},
+                                        {'end': null}
+                                    ]
+                                }
+                            ]
+                        };
+                        break;
+                    case 'available':
+                        query = {
+                            $or: [
+                                {'end': {$gte: date}},
+                                {'end': null}
+                            ]
+                        };
                         break;
                     case 'all':
                         queryparams = {};
@@ -58,18 +74,15 @@ var api = {
                 query = Event.find(queryparams);
                 query.limit(limit);
                 query.skip(skip);
-                query.exec(function(err,result)
-                {
-                   if(err)
-                   {
-                       res.send(new ResultObject(false,err,"Error buscando los eventos."
-                           ,ResultObject.prototype.BD_ERROR));
-                   }
-                    else
-                   {
-                       res.send(new ResultObject(true,result,"Eventos encontrados con exito."
-                           ,ResultObject.prototype.ALL_OK));
-                   }
+                query.exec(function (err, result) {
+                    if (err) {
+                        res.send(new ResultObject(false, err, "Error buscando los eventos."
+                            , ResultObject.prototype.BD_ERROR));
+                    }
+                    else {
+                        res.send(new ResultObject(true, result, "Eventos encontrados con exito."
+                            , ResultObject.prototype.ALL_OK));
+                    }
                 });
             });
         router.route('/events/count/active')
@@ -90,24 +103,29 @@ var api = {
                 }
 
                 var date = new Date();
-                Event.count({$and: [
-                    {$or:[
-                        {'beginning':{$lte:date}},
-                        {'beginning':null}
-                    ]},
-                    {$or:[   {'end':{$gte:date}},
-                        {'end':null}
-                    ]}
-                ]}).exec(cb);
+                Event.count({
+                    $and: [
+                        {
+                            $or: [
+                                {'beginning': {$lte: date}},
+                                {'beginning': null}
+                            ]
+                        },
+                        {
+                            $or: [{'end': {$gte: date}},
+                                {'end': null}
+                            ]
+                        }
+                    ]
+                }).exec(cb);
 
             });
         router.route('/event')
             .post(function (req, res) {
 
-                if(typeof req.body.id === 'undefined')
-                {
-                    res.send(new ResultObject(false,null,"Es necesario un id para la busqueda"
-                        ,ResultObject.prototype.BAD_REQUEST));
+                if (typeof req.body.id === 'undefined') {
+                    res.send(new ResultObject(false, null, "Es necesario un id para la busqueda"
+                        , ResultObject.prototype.BAD_REQUEST));
 
                     return;
                 }
@@ -116,16 +134,16 @@ var api = {
                     .findOne({_id: req.body.id})
                     .exec(function (err, find) {
                         if (err) {
-                            rres.send(new ResultObject(false,err,"Ocurrio un error durante la busqueda."
-                                ,ResultObject.prototype.BAD_REQUEST));
+                            rres.send(new ResultObject(false, err, "Ocurrio un error durante la busqueda."
+                                , ResultObject.prototype.BAD_REQUEST));
                         }
                         else if (!find) {
-                            res.send(new ResultObject(false,null,"No se enconro el evento epecificado."
-                                ,ResultObject.prototype.BD_NOT_FOUND));
+                            res.send(new ResultObject(false, null, "No se enconro el evento epecificado."
+                                , ResultObject.prototype.BD_NOT_FOUND));
                         }
                         else {
-                            res.send(new ResultObject(true,find,"Evento encontrado con exito."
-                                ,ResultObject.prototype.ALL_OK));
+                            res.send(new ResultObject(true, find, "Evento encontrado con exito."
+                                , ResultObject.prototype.ALL_OK));
                         }
                     });
             });
@@ -197,8 +215,7 @@ var api = {
                 function checkInput(cb) {
                     var ro = new ResultObject();
                     var err = null;
-                    if (!req.body.id || !req.body.name)
-                    {
+                    if (!req.body.id || !req.body.name) {
                         ro.success = false;
                         ro.info = 'Id and name are required fields';
                         ro.code = ro.BAD_REQUEST;
@@ -232,7 +249,7 @@ var api = {
                 function updateEvent(ro, cb) {
                     var condition = {_id: req.body.id},
                         update = req.body;
-                        options = {multi: false}
+                    options = {multi: false}
                     Event.update(condition, update, options, function (err, affected) {
                         if (!err) {
                             if (affected > 0) {
@@ -399,8 +416,9 @@ var api = {
                     }
                     cb(err, ro);
                 }
+
                 function deleteEnrollment(ro, cb) {
-                    Enrollment.remove({_id: req.body.id},function (err, result) {
+                    Enrollment.remove({_id: req.body.id}, function (err, result) {
                         if (!err) {
                             ro.success = true;
                             ro.info = "Enrollment removed";

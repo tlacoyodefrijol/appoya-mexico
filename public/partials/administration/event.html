@@ -1,14 +1,14 @@
-<div data-ng-controller="ControllerGroup" data-ng-init="updateLists()">
-    <h2>{{group.name}}</h2>
+<div id="contentContainer" data-ng-controller="ControllerEvent" data-ng-init="updateLists()">
+    <h2>{{event.name}}</h2>
 
     <form>
-        <h3>Editar datos del grupo</h3>
-        Nombre: <input type="text" data-ng-model="groupName"/>
-        Ciclo:
-        <select name="cycleList"
-                data-ng-model="listCycle"
-                data-ng-options="option.name for option in cycleOptions">
-        </select>
+        <h3>Editar datos del evento</h3>
+        <label>Nombre</label>
+        <input type="text" data-ng-model="eventName"/>
+        <label>Fecha de inicio</label>
+        <input type="date" name="eventDateBegin" data-ng-model="event.beginning" value="{{eventDateBegin}}" required/>
+        <label>Fecha de fin</label>
+        <input type="date" name="eventDateEnd" data-ng-model="event.end" value="{{event.end}}" required/>
         <button data-ng-click="updateInfo()">Guardar</button>
     </form>
     {{messageUpdate}}
@@ -34,17 +34,17 @@
         </li>
     </ul>
 
-    <h3>Lista de Alumnos</h3>
+    <h3>Lista de voluntarios</h3>
     <ul>
-        <li data-ng-repeat="student in studentList"><a href="/panel/administration/user/{{student.user.id}}">{{student.user.name}}
-            {{student.user.lastname}}</a>
+        <li data-ng-repeat="volunteer in volunteerList"><a href="/usuario/{{volunteer.user.id}}">{{student.user.name}}
+            {{volunteer.user.lastname}}</a>
             <button data-ng-click="withdrawUser(student.id)">Retirar</button>
         </li>
     </ul>
-    <h3>Lista de Profesores</h3>
+    <h3>Lista de aliados</h3>
     <ul>
-        <li data-ng-repeat="teacher in teacherList"><a href="/panel/administration/user/{{teacher.user.id}}">{{teacher.user.name}}
-            {{teacher.user.lastname}}</a>
+        <li data-ng-repeat="ally in allyList"><a href="/usuario/{{ally.user.id}}">{{teacher.user.name}}
+            {{ally.user.lastname}}</a>
             <button data-ng-click="withdrawUser(teacher.id)">Retirar</button>
         </li>
     </ul>

@@ -275,7 +275,7 @@ var api =
                     res.send(new ResultObject(false,null,"Es necesario un profile."
                         ,ResultObject.prototype.BAD_REQUEST));
                 }
-                else if(req.body.profile != "volunteer" && req.body.profile != "ally")
+                else if(req.body.profile != "voluntario" && req.body.profile != "aliado")
                 {
                     res.send(new ResultObject(false,null,"student y teacher son los unicos profiles aceptados."
                         ,ResultObject.prototype.BAD_REQUEST));
