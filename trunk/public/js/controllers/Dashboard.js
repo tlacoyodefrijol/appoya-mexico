@@ -1,4 +1,4 @@
-app.controller('ControllerDashboard', ['$scope', '$cookieStore', 'FactoryUsers','FactoryEvents',
+app.controller('ControllerDashboard', ['$scope', '$cookieStore', 'FactoryUsers', 'FactoryEvents',
     function ($scope, $cookieStore, FactoryUsers, FactoryEvents) {
         $scope.isAdmin = false;
         $scope.isUser = false;
@@ -9,22 +9,18 @@ app.controller('ControllerDashboard', ['$scope', '$cookieStore', 'FactoryUsers',
             case 'principal':
             case 'coordinator':
                 $scope.isAdmin = true;
-                FactoryUsers.count('volunteer')
+                FactoryUsers.count('voluntario')
                     .success(function (data) {
                         $scope.countVolunteers = data.data;
                     });
-                FactoryUsers.count('ally')
+                FactoryUsers.count('aliado')
                     .success(function (data) {
                         $scope.countAllies = data.data;
                     });
-                /*FactoryEvents.count()
-                    .success(function(data){
-                        console.log('----> ',data)
-                        $scope.countEvents = data.data;
-                    }).error(function(data){
-                        console.log('=====> ',data)
-                    });*/
-                $scope.countEvents = 'error';
+                FactoryEvents.get({status:'available'})
+                    .success(function (data) {
+                        $scope.countEvents = data.data.length;
+                    });
                 break;
             case 'teacher':
                 break;

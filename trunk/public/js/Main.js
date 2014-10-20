@@ -26,7 +26,7 @@ app.config([
                 templateUrl: '/partials/login.html',
                 controller: 'ControllerLogin'
             })
-            .when(app.baseURL+'dashboard', {
+            .when(app.baseURL+'tablero', {
                 templateUrl: '/partials/dashboard.html',
                 controller: 'ControllerDashboard'
             })
@@ -38,39 +38,19 @@ app.config([
                 templateUrl: '/partials/notificationCompose.html',
                 controller: 'ControllerNotificationCompose'
             })
-            .when(app.baseURL+'program', {
-                templateUrl: '/partials/elearning/program.html',
-                controller: 'ControllerUsers'
-            })
-            .when(app.baseURL+'learningObject', {
-                templateUrl: '/partials/elearning/learningObject.html',
-                controller: 'ControllerUsers'
-            })
-            .when(app.baseURL+'administration/dashboard', {
-                templateUrl: '/partials/administration/dashboard.html',
-                controller: 'ControllerUsers'
-            })
-            .when(app.baseURL+'administration/cycles', {
-                templateUrl: '/partials/administration/cycles.html',
-                controller: 'ControllerCycles'
-            })
-            .when(app.baseURL+'administration/cycle/:id', {
-                templateUrl: '/partials/administration/cycle.html',
-                controller: 'ControllerCycle'
-            })
-            .when(app.baseURL+'administration/events/', {
+            .when(app.baseURL+'eventos/', {
                 templateUrl: '/partials/administration/events.html',
-                controller: 'ControllerGroups'
+                controller: 'ControllerEvents'
             })
-            .when(app.baseURL+'administration/event/:id', {
+            .when(app.baseURL+'evento/:id', {
                 templateUrl: '/partials/administration/event.html',
-                controller: 'ControllerGroup'
+                controller: 'ControllerEvent'
             })
-            .when(app.baseURL+'administration/users/:id', {
+            .when(app.baseURL+'usuarios/:id', {
                 templateUrl: '/partials/administration/users.html',
                 controller: 'ControllerUsers'
             })
-            .when(app.baseURL+'administration/user/:id', {
+            .when(app.baseURL+'usuario/:id', {
                 templateUrl: '/partials/administration/user.html',
                 controller: 'ControllerUser'
             })
@@ -86,14 +66,17 @@ app.run(function ($rootScope, $location, $cookieStore) {
     $rootScope.$on('$routeChangeSuccess', function () {
         var _profile = typeof $cookieStore.get('profile');
         var _url = $location.url();
+        //console.log($location.url(),$location.path())
         $rootScope.showNav = false;
         if (_profile === 'undefined' && _url !== app.baseURL) {
             console.log('if')
+            alert('if')
             $location.path(app.baseURL).replace();
         }
         else if (_profile !== 'undefined' && _url === app.baseURL) {
-            console.log('else if')
-            $location.path(app.baseURL+'dashboard').replace();
+            console.log('else if ',_url)
+            alert('else if')
+            $location.path(app.baseURL+'tablero').replace();
         }
         if (_url !== app.baseURL) {
             $rootScope.showNav = true;

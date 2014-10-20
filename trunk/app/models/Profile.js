@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var schemaProfile = new Schema({
-    _id: {type: String, enum: ['master', 'secretariat', 'ally', 'volunteer']}
+    _id: {type: String, enum: ['master', 'secretaria', 'aliado', 'voluntario']}
 },
     {collection:"Profile"});
 

@@ -16,7 +16,7 @@ app.controller('ControllerLogin', ['$scope', '$http', '$location', '$route', '$c
                         $cookieStore.put('viewAs',data.data[0].id);
                         $cookieStore.put('profiles',data.data);
                         //$location.url('/panel/dashboard');
-                        $location.path(app.baseURL+'dashboard').replace();
+                        $location.path(app.baseURL+'tablero').replace();
                         //window.location.href = '/panel/dashboard';
                     }
                 });

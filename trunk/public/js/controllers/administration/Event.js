@@ -1,34 +1,23 @@
-app.controller('ControllerEvent', ['$scope', '$routeParams', 'FactoryCycles', 'FactoryGroups', 'FactoryUsers',
-    function ($scope, $routeParams, FactoryCycles, FactoryGroups, FactoryUsers) {
+app.controller('ControllerEvent', ['$scope', '$routeParams', 'FactoryEvents', 'FactoryUsers','$filter',
+    function ($scope, $routeParams, FactoryEvents, FactoryUsers, $filter) {
 
-        var groupId = $routeParams.id;
+        var eventId = $routeParams.id;
 
-        $scope.profileTypeOptions = [{id: 'student', name: 'Alumno'}, {id: 'teacher', name: 'Maestro'}];
-
+        $scope.profileTypeOptions = [{id: 'voluntario', name: 'Voluntario'}, {id: 'aliado', name: 'Aliado'}];
 
         $scope.updateLists = function () {
-            FactoryGroups.getOne(groupId)
+            FactoryEvents.getOne(eventId)
                 .success(function (data) {
-                    $scope.group = data.data;
-                    $scope.groupName = $scope.group.name;
-                    FactoryCycles.get({status: 'available'})
-                        .success(function (data, status) {
-                            $scope.cycleOptions = data.data;
-                            for (var i = 0; i < $scope.cycleOptions.length; i++) {
-                                if ($scope.cycleOptions[i].id === $scope.group.cycle.id) {
-                                    $scope.listCycle = $scope.cycleOptions[i];
-                                    return;
-                                }
-                            }
-                        });
+                    $scope.event = data.data;
+                    $scope.eventName = $scope.event.name;
                 });
-            FactoryGroups.enrollments({group: groupId, role: 'student'})
+            FactoryEvents.enrollments({event: eventId, role: 'voluntario'})
                 .success(function (data) {
-                    $scope.studentList = data;
+                    $scope.volunteerList = data;
                 });
-            FactoryGroups.enrollments({group: groupId, role: 'teacher'})
+            FactoryEvents.enrollments({event: eventId, role: 'aliado'})
                 .success(function (data) {
-                    $scope.teacherList = data;
+                    $scope.allyList = data;
                 });
         };
 
@@ -61,13 +50,17 @@ app.controller('ControllerEvent', ['$scope', '$routeParams', 'FactoryCycles', 'F
         $scope.enrollUser = function (data) {
             var obj = {
                 user: data.id,
-                group: groupId,
+                event: eventId,
                 role: $scope.profileType.id
             };
-            FactoryGroups.enrollOne(obj)
+            console.log(obj)
+            FactoryEvents.enrollOne(obj)
                 .success(function (data) {
                     $scope.messageSearch = data.info;
                     $scope.updateLists();
+                })
+                .error(function(data){
+                    console.log(data)
                 });
         };
 
@@ -75,12 +68,11 @@ app.controller('ControllerEvent', ['$scope', '$routeParams', 'FactoryCycles', 'F
             if ($scope.groupName !== '') {
 
                 var _grp = {
-                    id: groupId,
+                    id: eventId,
                     name: $scope.groupName,
                     //level: $scope.group.level.id,
-                    cycle: $scope.listCycle.id
                 };
-                FactoryGroups.updateOne(_grp)
+                FactoryEvents.updateOne(_grp)
                     .success(function (data) {
                         $scope.group.name = $scope.groupName;
                         $scope.messageUpdate = 'Cambios guardados';
@@ -94,7 +86,7 @@ app.controller('ControllerEvent', ['$scope', '$routeParams', 'FactoryCycles', 'F
         };
 
         $scope.withdrawUser = function (data) {
-            FactoryGroups.withdrawOne(data);
+            FactoryEvents.withdrawOne(data);
             $scope.updateLists();
         };
         $scope.clearFields = function () {
