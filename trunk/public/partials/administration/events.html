@@ -1,20 +1,20 @@
 <div id="contentContainer" data-ng-controller="ControllerEvents" data-ng-init="init()">
     <h2>Eventos</h2>
 
-    <h3>Agregar evento</h3>
+    <div data-ng-if="enableEdit">
+        <h3>Agregar evento</h3>
 
-    <form name="addEventForm" method="post" data-ng-submit="addEvent()">
-        <label>Nombre del evento</label>
-        <input type="text" name="groupName" data-ng-model="event.name" required/>
-        <label>Fecha de inicio</label>
-        <input type="date" name="cycleDateBegin" data-ng-model="event.beginning" required/>
-        <label>Fecha de fin</label>
-        <input type="date" name="cycleDateEnd" data-ng-model="event.end" required/>
-        <button type="submit">Agregar</button>
-    </form>
-    {{messageEvent}}<br/>
-
-    <h3>Lista de eventos</h3>
+        <form name="addEventForm" method="post" data-ng-submit="addEvent()">
+            <label>Nombre del evento</label>
+            <input type="text" name="groupName" data-ng-model="event.name" required/>
+            <label>Fecha de inicio</label>
+            <input type="date" name="cycleDateBegin" data-ng-model="event.beginning" required/>
+            <label>Fecha de fin</label>
+            <input type="date" name="cycleDateEnd" data-ng-model="event.end" required/>
+            <button type="submit">Agregar</button>
+        </form>
+        {{messageEvent}}<br/>
+    </div>
     <ul>
         <li data-ng-repeat="event in events"><a href="/evento/{{event.id}}">{{event.name}}</a>
             <button data-ng-click="deleteEvent(event.id)">Eliminar</button>

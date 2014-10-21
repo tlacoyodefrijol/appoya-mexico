@@ -225,7 +225,7 @@ var api = {
                 }
 
                 function findDuplicate(ro, cb) {
-                    Group
+                    Event
                         .findOne({
                             _id: {$ne: req.body.id},
                             name: req.body.name
@@ -384,6 +384,7 @@ var api = {
                             ro.data = result.id;
                         }
                         else {
+                            ro.info = err.message;
                             ro.code = ro.BD_ERROR;
                         }
                         cb(err, ro);

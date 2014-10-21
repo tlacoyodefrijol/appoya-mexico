@@ -1,0 +1,9 @@
+<div ng-controller="ControllerLogin">
+    <form name="login" method="post" data-ng-submit="doLogin()">
+        <label>Usuario</label>
+        <input type="text" name="userName" data-ng-model="user.username" required/>
+        <label>Contraseña</label>
+        <input type="password" name="userPassword" data-ng-model="user.secretword" required/>
+        <input type="submit" value="Entrar" class="btn btn-default" />
+    </form>
+</div>

@@ -1,6 +1,9 @@
 <div id="contentContainer" data-ng-controller="ControllerDashboard">
     <div id="dashboardContent">
         <div data-ng-include="'/partials/administration/dashboardProfile-'+profile+'.html'"></div>
-        <div data-ng-include="'/partials/smartschedules/dashboardProfile-'+profile+'.html'"></div>
     </div>
+    <h2>Eventos</h2>
+    <ul>
+        <li data-ng-repeat="event in eventList"><a href="/evento/{{event.id}}">{{event.name}}</a></li>
+    </ul>
 </div>

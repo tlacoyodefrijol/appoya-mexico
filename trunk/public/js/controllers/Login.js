@@ -1,5 +1,5 @@
-app.controller('ControllerLogin', ['$scope', '$http', '$location', '$route', '$cookieStore',
-    function ($scope, $http, $location, $route, $cookieStore) {
+app.controller('ControllerLogin', ['$rootScope', '$scope', '$http', '$location', '$route', '$cookieStore',
+    function ($rootScope, $scope, $http, $location, $route, $cookieStore) {
         $scope.user = {};
         $scope.doLogin = function () {
             $http({
@@ -15,8 +15,10 @@ app.controller('ControllerLogin', ['$scope', '$http', '$location', '$route', '$c
                         $cookieStore.put('profile',data.data[0].id);
                         $cookieStore.put('viewAs',data.data[0].id);
                         $cookieStore.put('profiles',data.data);
+                        $rootScope.showLogin = true;
+
                         //$location.url('/panel/dashboard');
-                        $location.path(app.baseURL+'tablero').replace();
+                        //$location.path(app.baseURL+'tablero').replace();
                         //window.location.href = '/panel/dashboard';
                     }
                 });
