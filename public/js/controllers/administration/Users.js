@@ -1,5 +1,5 @@
-app.controller('ControllerUsers', ['$scope', '$routeParams', 'FactoryUsers',
-    function ($scope, $routeParams, FactoryUsers) {
+app.controller('ControllerUsers', ['$window', '$rootScope', '$scope', '$routeParams', '$cookieStore', 'FactoryUsers',
+    function ($window, $rootScope, $scope, $routeParams, $cookieStore, FactoryUsers) {
 
         $scope.role = $routeParams.id;
         $scope.selectStatus = [
@@ -8,13 +8,29 @@ app.controller('ControllerUsers', ['$scope', '$routeParams', 'FactoryUsers',
             {id: 'inactive', name: 'Inactivos'}];
         $scope.listStatus = $scope.selectStatus[0];
         $scope.user = {};
+        $scope.isWidget = false;
+        if ($cookieStore.get('profile') === 'master') {
+            $scope.enableAddUser = true;
+        } else {
+            $scope.enableAddUser = false;
+        }
+
 
         $scope.addUser = function () {
             $scope.user.profile = $scope.role;
             FactoryUsers.addOne($scope.user)
                 .success(function (data) {
                     $scope.message = data.info;
-                    $scope.updateList();
+                    if ($scope.isWidget) {
+                        $cookieStore.put('profile', data.data.profile[0]);
+                        $cookieStore.put('viewAs', data.data.profile[0]);
+                        $cookieStore.put('profiles', data.data.profile);
+                        $rootScope.isLogged = true;
+                        $window.location.reload();
+                    } else {
+                        $scope.updateList();
+                    }
+
                 });
         };
         $scope.updateList = function () {

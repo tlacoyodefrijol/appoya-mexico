@@ -1,12 +1,30 @@
-button, input[type=button] {
+.button, button, input[type=button], input[type=submit] {
   .removeSkin;
   .boxSizing;
-  background-color: @colorMain;
+  background-color: darken(@colorMain, 20);
   color: #FFF;
+  cursor: pointer;
   font-family: 'Open Sans Regular', sans-serif;
   font-size: 1em;
   padding: .625em;
   text-align: center;
+  text-transform: uppercase;
+  &:hover {
+    background-color: lighten(@colorMain, 20);
+  }
+  &.action {
+    background-color: @colorAction;
+    &:hover {
+      background-color: lighten(@colorAction, 20);
+    }
+  }
+}
+
+input[type=submit] {
+  background-color: @colorAction;
+  &:hover {
+    background-color: lighten(@colorAction, 20);
+  }
 }
 
 select {
@@ -27,9 +45,11 @@ input {
 
 form {
   .boxSizing;
-  .dropShadow(@x:0, @y:.125em, @opacity:.25);
-  padding: 1em;
-  margin-bottom: 1em;
+  &.custom {
+    .dropShadow(@x:0, @y:.125em, @opacity:.25);
+    padding: 1em;
+    margin-bottom: 1em;
+  }
   label {
     color: @colorDarkGray;
     display: block;

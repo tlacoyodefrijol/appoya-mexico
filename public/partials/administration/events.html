@@ -1,7 +1,7 @@
 <div id="contentContainer" data-ng-controller="ControllerEvents" data-ng-init="init()">
     <h2>Eventos</h2>
 
-    <div data-ng-if="enableEdit">
+    <div data-ng-if="enableAddEvent">
         <h3>Agregar evento</h3>
 
         <form name="addEventForm" method="post" data-ng-submit="addEvent()">
@@ -17,7 +17,7 @@
     </div>
     <ul>
         <li data-ng-repeat="event in events"><a href="/evento/{{event.id}}">{{event.name}}</a>
-            <button data-ng-click="deleteEvent(event.id)">Eliminar</button>
+            <button data-ng-click="deleteEvent(event.id)" data-ng-if="isOwner">Eliminar</button>
         </li>
     </ul>
 </div>

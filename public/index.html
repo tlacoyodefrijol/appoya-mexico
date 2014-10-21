@@ -2,27 +2,21 @@
 <html>
 <head lang="es">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title></title>
     <link href="/styles/css/main.css" rel="stylesheet">
-    <base href="/" />
+    <base href="/"/>
 </head>
 <body>
 <header id="mainHeader">
-    <h1>{{title}}</h1>
-    <div data-ng-if="showLogin" data-ng-include="'/partials/widgets/login.html'"></div>
-    <nav id="mainNav"
-         data-ng-controller="NavMain"
-         data-ng-include="'/partials/navMain.html'">
-    </nav>
+    <h1 id="logoMain"><a href="/">{{title}}</a></h1>
+
+    <div data-ng-include="'/partials/widgets/login.html'" class="loginWidget"></div>
 </header>
+<nav id="mainNav" data-ng-include="'/partials/navMain.html'" class="clearfix">
+</nav>
 <div id="mainContainer" class="clearfix">
     <div data-ng-view></div>
-    <div id="sideColumn" data-ng-if="showNav">
-        <div data-ng-if="isAdmin" data-ng-include="'/partials/administration/widgets/menuAdmin.html'"></div>
-        <div data-ng-include="'/partials/widgets/notifications.html'"></div>
-        <div data-ng-include="'/partials/widgets/events.html'"></div>
-        <div data-ng-show="isUser" data-ng-include="'/partials/widgets/achievements.html'"></div>
-    </div>
 </div>
 <script type="text/javascript" src="/libs/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="/libs/bootstrap/js/bootstrap.min.js"></script>
