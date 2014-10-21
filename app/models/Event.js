@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var schemaEvent = new Schema({
         name: String,
+        creator:{type: Schema.Types.ObjectId, ref: 'User'},
         beginning: Date,
         end: Date
     },

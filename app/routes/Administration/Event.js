@@ -152,9 +152,9 @@ var api = {
                 function checkInput(cb) {
                     var ro = new ResultObject();
                     var err = null;
-                    if (!req.body.name) {
+                    if (!req.body.name || req.body.creator) {
                         ro.success = false;
-                        ro.info = 'Name is a required field';
+                        ro.info = 'Name and creator is a required field';
                         ro.code = ro.BAD_REQUEST;
                         err = new Error();
                     }
