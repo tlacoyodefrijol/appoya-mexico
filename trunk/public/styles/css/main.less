@@ -3,8 +3,10 @@
 @import 'imports/fonts';
 
 @colorMain: #D22229;
+@colorAction: #39B44A;
 @colorGray: #CCC;
 @colorDarkGray: #919191;
+
 
 body {
   font-family: 'Open Sans Regular', sans-serif;
@@ -34,7 +36,29 @@ h3 {
   font-size: 2em;
   padding: 1em 0;
 }
-
+#logoMain
+{
+  background-image: url('/styles/images/logo.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: inline-block;
+  font-size: 1em;
+  margin: 0 1em;
+  overflow: hidden;
+  padding: 1em 0 .4em;
+  position: relative;
+  width: 8.5em;
+  height: 4.5em;
+  a
+  {
+    position: absolute;
+    text-indent: 200%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
 #mainContainer {
   .boxSizing;
   padding: 0 1em;
@@ -45,13 +69,8 @@ h3 {
 #contentContainer {
   .boxSizing;
   float: left;
-  padding-right: 21em;
+  //padding-right: 21em;
   width: 100%;
-  > div:first-of-type {
-    .dropShadow(@x:0, @y:.125em, @opacity:.25);
-    margin-top: 1em;
-    padding: 0 1em 1em 1em;
-  }
 }
 
 #sideColumn {
@@ -63,15 +82,21 @@ h3 {
   width: 20em;
 }
 
+@import 'imports/mainHeader';
+@import 'imports/mainNav';
+@import 'imports/dashboard';
+@import 'imports/forms';
+@import 'imports/lists';
+
 .left {
   float: left;
+  margin-right: 1em !important;
 }
 
 .right {
   float: right;
+  margin-left: 1em !important;
 }
 
-@import 'imports/mainHeader';
-@import 'imports/dashboard';
-@import 'imports/forms';
-@import 'imports/lists';
+//Bootstrap
+@import 'imports/bootstrap/bootstrap';

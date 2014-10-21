@@ -1,9 +1,52 @@
-<div ng-controller="ControllerLogin">
-    <form name="login" method="post" data-ng-submit="doLogin()">
-        <label>Usuario</label>
-        <input type="text" name="userName" data-ng-model="user.username" required/>
-        <label>Contraseña</label>
-        <input type="password" name="userPassword" data-ng-model="user.secretword" required/>
-        <input type="submit" value="Entrar" class="btn btn-default" />
-    </form>
+<div ng-controller="ControllerLogin" data-ng-init="isWidget=true">
+    <div class="loginOptions">
+        <div data-ng-if="!isLogged">
+            <a href="javascript:void(0)" data-toggle="modal" data-target="#formAddUser" class="button">Registrarse</a>
+            <a href="javascript:void(0)" data-toggle="modal" data-target="#formLogin" class="button action">Ingresar</a>
+        </div>
+        <div data-ng-if="isLogged">
+            <a href="javascript:void(0)" data-ng-click="doLogout()" class="button"><span class="fa fa-sign-out"></span> Salir</a>
+        </div>
+    </div>
+    <div id="formLogin" class="modal fade" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body clearfix">
+                    <form name="login" method="post" data-ng-submit="doLogin()">
+                        <label>Usuario</label>
+                        <input type="text" name="userName" data-ng-model="user.username" required/>
+                        <label>Contraseña</label>
+                        <input type="password" name="userPassword" data-ng-model="user.secretword" required/>
+                        <input type="submit" value="Entrar" class="right"/>
+                        <input type="button" value="Cancelar" class="right" data-toggle="modal" data-target="#formLogin"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<div id="formAddUser" data-ng-controller="ControllerUsers" class="modal fade" data-ng-init="isWidget=true; role='voluntario'">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body clearfix">
+                <form id="quickAddUser" name="addUserForm" method="post" data-ng-submit="addUser()" class="clearfix">
+                    <label for="quName">Nombre</label>
+                    <input id="quName" type="text" name="userName" data-ng-model="user.name" required/>
+                    <label for="quLastName">Apellidos</label>
+                    <input id="quLastName" type="text" name="userLastName" data-ng-model="user.lastname" required/>
+                    <label for="quUsername">Nombre de usuario</label>
+                    <input id="quUsername" type="text" name="userName" data-ng-model="user.username" required/>
+                    <label for="quSecretword">Contraseña</label>
+                    <input id="quSecretword" type="password" name="userPassword" data-ng-model="user.secretword"
+                           required/>
+                    <input type="submit" value="Registrar" class="right"/>
+                    <input type="button" value="Cancelar" class="right" data-toggle="modal" data-target="#formAddUser"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $('#formLogin').modal({show: false});
+    $('#formAddUser').modal({show: false});
+</script>

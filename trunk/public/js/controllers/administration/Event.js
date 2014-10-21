@@ -1,7 +1,14 @@
-app.controller('ControllerEvent', ['$scope', '$routeParams', 'FactoryEvents', 'FactoryUsers','$filter',
-    function ($scope, $routeParams, FactoryEvents, FactoryUsers, $filter) {
+app.controller('ControllerEvent', ['$scope', '$routeParams', 'FactoryEvents', 'FactoryUsers','$cookieStore',
+    function ($scope, $routeParams, FactoryEvents, FactoryUsers, $cookieStore) {
 
         var eventId = $routeParams.id;
+        $scope.isOwner = false;
+
+        if ($cookieStore.get('profile') === 'master') {
+            $scope.isOwner = true;
+        } else {
+            $scope.isOwner = false;
+        }
 
         $scope.profileTypeOptions = [{id: 'voluntario', name: 'Voluntario'}, {id: 'aliado', name: 'Aliado'}];
 

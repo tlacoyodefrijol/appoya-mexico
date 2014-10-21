@@ -1,4 +1,5 @@
 <div id="contentContainer" data-ng-controller="ControllerUsers" data-ng-init="updateList()">
+    <div data-ng-if="enableAddUser">
     <h2>Crear {{role}}</h2>
 
     <form id="quickAddUser" name="addUserForm" method="post" data-ng-submit="addUser()" class="clearfix">
@@ -13,7 +14,7 @@
         <button type="submit" class="right">Agregar</button>
     </form>
     {{message}}<br/>
-
+    </div>
     <h2>Lista de {{role}}</h2>
 
     <form>

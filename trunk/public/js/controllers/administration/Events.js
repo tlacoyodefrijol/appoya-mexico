@@ -2,10 +2,12 @@ app.controller('ControllerEvents', ['$scope', '$cookieStore', 'FactoryEvents',
     function ($scope, $cookieStore, FactoryEvents) {
         var defaultVal = [{id: 'all', name: 'Todos'}, {id: 'active', name: 'Activos'}];
 
-        $scope.enableEdit = false;
-
-        if ($cookieStore.get('profile') === 'secretaria' || $cookieStore.get('profile') === 'aliado') {
-            $scope.enableEdit = true;
+        if ($cookieStore.get('profile') === 'master') {
+            $scope.enableAddEvent = true;
+            $scope.isOwner = true;
+        } else {
+            $scope.enableAddEvent = false;
+            $scope.isOwner = false;
         }
 
         $scope.init = function () {
