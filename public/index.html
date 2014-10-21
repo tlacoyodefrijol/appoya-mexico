@@ -7,8 +7,9 @@
     <base href="/" />
 </head>
 <body>
-<header id="mainHeader" data-ng-if="showNav">
+<header id="mainHeader">
     <h1>{{title}}</h1>
+    <div data-ng-if="showLogin" data-ng-include="'/partials/widgets/login.html'"></div>
     <nav id="mainNav"
          data-ng-controller="NavMain"
          data-ng-include="'/partials/navMain.html'">

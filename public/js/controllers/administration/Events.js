@@ -1,12 +1,15 @@
-app.controller('ControllerEvents', ['$scope', 'FactoryEvents',
-    function ($scope, FactoryEvents) {
+app.controller('ControllerEvents', ['$scope', '$cookieStore', 'FactoryEvents',
+    function ($scope, $cookieStore, FactoryEvents) {
         var defaultVal = [{id: 'all', name: 'Todos'}, {id: 'active', name: 'Activos'}];
 
+        $scope.enableEdit = false;
+
+        if ($cookieStore.get('profile') === 'secretaria' || $cookieStore.get('profile') === 'aliado') {
+            $scope.enableEdit = true;
+        }
+
         $scope.init = function () {
-            FactoryEvents.get({status: 'available'})
-                .success(function (data) {
-                    $scope.events = data.data;
-                });
+            getEvents();
         };
 
         $scope.addEvent = function () {
@@ -24,16 +27,20 @@ app.controller('ControllerEvents', ['$scope', 'FactoryEvents',
             }
         };
         $scope.updateEvents = function (data) {
-            FactoryEvents.get({status: 'available'})
-                .success(function (data) {
-                    $scope.events = data.data;
-                });
+            getEvents();
         };
 
         $scope.deleteEvent = function (data) {
             FactoryEvents.deleteOne(data)
                 .success(function (data) {
                     $scope.updateEvents();
+                });
+        };
+
+        function getEvents() {
+            FactoryEvents.get({status: 'available'})
+                .success(function (data) {
+                    $scope.events = data.data;
                 });
         }
     }]);

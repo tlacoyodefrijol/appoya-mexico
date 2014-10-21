@@ -10,6 +10,8 @@ app.controller('ControllerEvent', ['$scope', '$routeParams', 'FactoryEvents', 'F
                 .success(function (data) {
                     $scope.event = data.data;
                     $scope.eventName = $scope.event.name;
+                    $scope.eventDateBegin = $scope.event.beginning
+                    $scope.eventDateEnd = $scope.event.end;
                 });
             FactoryEvents.enrollments({event: eventId, role: 'voluntario'})
                 .success(function (data) {
@@ -53,7 +55,6 @@ app.controller('ControllerEvent', ['$scope', '$routeParams', 'FactoryEvents', 'F
                 event: eventId,
                 role: $scope.profileType.id
             };
-            console.log(obj)
             FactoryEvents.enrollOne(obj)
                 .success(function (data) {
                     $scope.messageSearch = data.info;
@@ -65,16 +66,16 @@ app.controller('ControllerEvent', ['$scope', '$routeParams', 'FactoryEvents', 'F
         };
 
         $scope.updateInfo = function () {
-            if ($scope.groupName !== '') {
-
+            if ($scope.eventName !== '') {
                 var _grp = {
                     id: eventId,
-                    name: $scope.groupName,
-                    //level: $scope.group.level.id,
+                    name: $scope.eventName,
+                    beginning: $scope.eventDateBegin,
+                    end: $scope.eventDateEnd
                 };
                 FactoryEvents.updateOne(_grp)
                     .success(function (data) {
-                        $scope.group.name = $scope.groupName;
+                        $scope.event.name = $scope.eventName;
                         $scope.messageUpdate = 'Cambios guardados';
                     })
                     .error(function (data) {

@@ -23,12 +23,8 @@ app.config([
 
         $routeProvider
             .when(app.baseURL, {
-                templateUrl: '/partials/login.html',
-                controller: 'ControllerLogin'
-            })
-            .when(app.baseURL+'tablero', {
                 templateUrl: '/partials/dashboard.html',
-                controller: 'ControllerDashboard'
+                controller: 'ControllerLogin'
             })
             .when(app.baseURL+'notification/message/:id', {
                 templateUrl: '/partials/notificationView.html',
@@ -67,19 +63,20 @@ app.run(function ($rootScope, $location, $cookieStore) {
         var _profile = typeof $cookieStore.get('profile');
         var _url = $location.url();
         //console.log($location.url(),$location.path())
-        $rootScope.showNav = false;
+        /*$rootScope.showNav = false;
         if (_profile === 'undefined' && _url !== app.baseURL) {
             console.log('if')
-            alert('if')
             $location.path(app.baseURL).replace();
         }
         else if (_profile !== 'undefined' && _url === app.baseURL) {
             console.log('else if ',_url)
-            alert('else if')
             $location.path(app.baseURL+'tablero').replace();
         }
         if (_url !== app.baseURL) {
             $rootScope.showNav = true;
+        }*/
+        if (_profile === 'undefined') {
+            $cookieStore.put('profile','visitante');
         }
     });
 });

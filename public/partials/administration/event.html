@@ -6,9 +6,9 @@
         <label>Nombre</label>
         <input type="text" data-ng-model="eventName"/>
         <label>Fecha de inicio</label>
-        <input type="date" name="eventDateBegin" data-ng-model="event.beginning" value="{{eventDateBegin}}" required/>
+        <input type="text" name="eventDateBegin" data-ng-model="eventDateBegin" required/>
         <label>Fecha de fin</label>
-        <input type="date" name="eventDateEnd" data-ng-model="event.end" value="{{event.end}}" required/>
+        <input type="text" name="eventDateEnd" data-ng-model="eventDateEnd" required/>
         <button data-ng-click="updateInfo()">Guardar</button>
     </form>
     {{messageUpdate}}
@@ -36,14 +36,14 @@
 
     <h3>Lista de voluntarios</h3>
     <ul>
-        <li data-ng-repeat="volunteer in volunteerList"><a href="/usuario/{{volunteer.user.id}}">{{student.user.name}}
+        <li data-ng-repeat="volunteer in volunteerList"><a href="/usuario/{{volunteer.user.id}}">{{volunteer.user.name}}
             {{volunteer.user.lastname}}</a>
             <button data-ng-click="withdrawUser(student.id)">Retirar</button>
         </li>
     </ul>
     <h3>Lista de aliados</h3>
     <ul>
-        <li data-ng-repeat="ally in allyList"><a href="/usuario/{{ally.user.id}}">{{teacher.user.name}}
+        <li data-ng-repeat="ally in allyList"><a href="/usuario/{{ally.user.id}}">{{ally.user.name}}
             {{ally.user.lastname}}</a>
             <button data-ng-click="withdrawUser(teacher.id)">Retirar</button>
         </li>

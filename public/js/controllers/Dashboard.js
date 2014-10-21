@@ -9,18 +9,6 @@ app.controller('ControllerDashboard', ['$scope', '$cookieStore', 'FactoryUsers',
             case 'principal':
             case 'coordinator':
                 $scope.isAdmin = true;
-                FactoryUsers.count('voluntario')
-                    .success(function (data) {
-                        $scope.countVolunteers = data.data;
-                    });
-                FactoryUsers.count('aliado')
-                    .success(function (data) {
-                        $scope.countAllies = data.data;
-                    });
-                FactoryEvents.get({status:'available'})
-                    .success(function (data) {
-                        $scope.countEvents = data.data.length;
-                    });
                 break;
             case 'teacher':
                 break;
@@ -30,6 +18,22 @@ app.controller('ControllerDashboard', ['$scope', '$cookieStore', 'FactoryUsers',
                 $scope.isUser = true;
                 break
         }
+        FactoryUsers.get({profile:'voluntario', status:'all'})
+            .success(function (data) {
+                $scope.countVolunteers = data.data.length;
+            });
+        FactoryUsers.get({profile:'aliado', status:'all'})
+            .success(function (data) {
+                $scope.countAllies = data.data.length;
+            });
+        FactoryEvents.get({status:'available'})
+            .success(function (data) {
+                $scope.countEvents = data.data.length;
+                $scope.eventList = data.data;
+            });
+
+
+
         /*
          //Para cuando hagamos mostrar como
          $rootScope.$watch(function () {
