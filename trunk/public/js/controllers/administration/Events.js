@@ -6,10 +6,8 @@ app.controller('ControllerEvents', ['$scope', '$cookieStore', 'FactoryEvents',
 
         if ($cookieStore.get('profile') === 'master' || $cookieStore.get('profile') === 'secretaria' || $cookieStore.get('profile') === 'aliado') {
             $scope.enableAddEvent = true;
-            $scope.isOwner = true;
         } else {
             $scope.enableAddEvent = false;
-            $scope.isOwner = false;
         }
 
         $scope.init = function () {
@@ -21,7 +19,7 @@ app.controller('ControllerEvents', ['$scope', '$cookieStore', 'FactoryEvents',
                 name: $scope.event.name,
                 beginning: new Date($scope.event.beginning),
                 end: new Date($scope.event.end),
-                creator: $cookieStore.get('usrId')
+                creator: $cookieStore.get('userId')
             };
             if (_grp.end >= _grp.beginning) {
                 FactoryEvents.addOne(_grp)
@@ -44,6 +42,12 @@ app.controller('ControllerEvents', ['$scope', '$cookieStore', 'FactoryEvents',
                     $scope.updateEvents();
                 });
         };
+
+        $scope.isCreator = function (id) {
+            if (id === $cookieStore.get('userId') || $cookieStore.get('profile') === 'master' || $cookieStore.get('profile') === 'secretaria') {
+                return true;
+            }
+        }
 
         function getEvents() {
             FactoryEvents.get({status: 'available'})

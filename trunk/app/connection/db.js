@@ -3,7 +3,11 @@ var dbConnection = mongoose.connection;
 var User = require('../models/User');
 var Profile = require('../models/Profile');
 
-mongoose.connect('mongodb://localhost/appoyamx');
+//offline
+//mongoose.connect('mongodb://localhost/appoyamx');
+
+//online
+mongoose.connect('mongodb://nodejitsu:293b6d52c0060adc4e0bad5293c11918@troup.mongohq.com:10073/nodejitsudb4234053310');
 //mongoose.set('debug', true);
 
 dbConnection.on('error', console.error.bind(console, 'connection error:'));
