@@ -5,12 +5,12 @@
         <h3>Agregar evento</h3>
 
         <form name="addEventForm" method="post" data-ng-submit="addEvent()">
-            <label>Nombre del evento</label>
-            <input type="text" name="groupName" data-ng-model="event.name" required/>
+            <label>Nombre</label>
+            <input type="text" data-ng-model="event.name"/>
             <label>Fecha de inicio</label>
-            <input type="date" name="cycleDateBegin" data-ng-model="event.beginning" required/>
+            <input type="date" name="eventDateBegin" data-ng-model="event.beginning" required/>
             <label>Fecha de fin</label>
-            <input type="date" name="cycleDateEnd" data-ng-model="event.end" required/>
+            <input type="date" name="eventDateEnd" data-ng-model="event.end" required/>
             <button type="submit">Agregar</button>
         </form>
         {{messageEvent}}<br/>

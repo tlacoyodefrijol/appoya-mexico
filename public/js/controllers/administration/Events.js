@@ -2,7 +2,9 @@ app.controller('ControllerEvents', ['$scope', '$cookieStore', 'FactoryEvents',
     function ($scope, $cookieStore, FactoryEvents) {
         var defaultVal = [{id: 'all', name: 'Todos'}, {id: 'active', name: 'Activos'}];
 
-        if ($cookieStore.get('profile') === 'master') {
+        $scope.event = {};
+
+        if ($cookieStore.get('profile') === 'master' || $cookieStore.get('profile') === 'secretaria' || $cookieStore.get('profile') === 'aliado') {
             $scope.enableAddEvent = true;
             $scope.isOwner = true;
         } else {
@@ -15,10 +17,14 @@ app.controller('ControllerEvents', ['$scope', '$cookieStore', 'FactoryEvents',
         };
 
         $scope.addEvent = function () {
-            var _begin = new Date($scope.event.beginning);
-            var _end = new Date($scope.event.end);
-            if (_end >= _begin) {
-                FactoryEvents.addOne($scope.event)
+            var _grp = {
+                name: $scope.event.name,
+                beginning: new Date($scope.event.beginning),
+                end: new Date($scope.event.end),
+                creator: $cookieStore.get('usrId')
+            };
+            if (_grp.end >= _grp.beginning) {
+                FactoryEvents.addOne(_grp)
                     .success(function (data, status) {
                         $scope.messageEvent = data.info;
                         $scope.updateEvents();
@@ -45,4 +51,5 @@ app.controller('ControllerEvents', ['$scope', '$cookieStore', 'FactoryEvents',
                     $scope.events = data.data;
                 });
         }
-    }]);
+    }])
+;

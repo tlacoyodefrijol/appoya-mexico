@@ -82,7 +82,7 @@
   }
 }
 .borderGradientVertical(@firstColor:#FFF, @secondColor:#000) {
-  border-image: @colorDefault; /* Old browsers */
+  border-image: @firstColor; /* Old browsers */
   -moz-border-image: -moz-linear-gradient(top, @firstColor 0%, @secondColor 100%); /* FF3.6+ */
   -webkit-border-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, @firstColor), color-stop(100%, @secondColor)); /* Chrome,Safari4+ */
   -webkit-border-image: -webkit-linear-gradient(top, @firstColor 0%, @secondColor 100%); /* Chrome10+,Safari5.1+ */
@@ -130,14 +130,14 @@
   text-shadow: -.0625rem -.0625rem 0 rgba(0, 0, 0, .6);
 }
 
-.gradientLinearVertical(@firstColor:#FFF, @secondColor:#000) {
-  background: @colorDefault; /* Old browsers */
-  background: -moz-linear-gradient(top, @firstColor 0%, @secondColor 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, @firstColor), color-stop(100%, @secondColor)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, @firstColor 0%, @secondColor 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, @firstColor 0%, @secondColor 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, @firstColor 0%, @secondColor 100%); /* IE10+ */
-  background: linear-gradient(to bottom, @firstColor 0%, @secondColor 100%); /* W3C */
+.gradientLinearVertical(@firstColor:#FFF, @secondColor:#000, @posF: 0%, @posS: 100%) {
+  background: @firstColor; /* Old browsers */
+  background: -moz-linear-gradient(top, @firstColor @posF, @secondColor @posS); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(@posF, @firstColor), color-stop(@posS, @secondColor)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, @firstColor @posF, @secondColor @posS); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, @firstColor @posF, @secondColor @posS); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, @firstColor @posF, @secondColor @posS); /* IE10+ */
+  background: linear-gradient(to bottom, @firstColor @posF, @secondColor @posS); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@firstColor', endColorstr='@secondColor', GradientType=0); /* IE6-8 */
 }
 

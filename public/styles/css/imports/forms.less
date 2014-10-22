@@ -1,29 +1,62 @@
 .button, button, input[type=button], input[type=submit] {
   .removeSkin;
   .boxSizing;
-  background-color: darken(@colorMain, 20);
   color: #FFF;
   cursor: pointer;
   font-family: 'Open Sans Regular', sans-serif;
   font-size: 1em;
   padding: .625em;
+  position: relative;
   text-align: center;
   text-transform: uppercase;
+  .gradientLinearVertical(@colorMain, darken(@colorMain, 10), 50%, 50%);
   &:hover {
-    background-color: lighten(@colorMain, 20);
+    .gradientLinearVertical(lighten(@colorMain, 10), @colorMain, 50%, 50%);
+  }
+  &.solid
+  {
+    border-left: solid .0625em darken(@colorMain, 10);
+    background-color: @colorMain;
+    background-image: none;
+    &:hover
+    {
+      background-color: lighten(@colorMain, 10);
+      background-image: none;
+    }
   }
   &.action {
-    background-color: @colorAction;
+    .gradientLinearVertical(@colorAction, darken(@colorAction, 10), 50%, 50%);
+    color: #000;
+    &:hover {
+      .gradientLinearVertical(lighten(@colorAction, 20), @colorAction, 50%, 50%);
+    }
+  }
+  &.error {
+    .gradientLinearVertical(darken(@colorMain, 20), darken(@colorMain, 30), 50%, 50%);
     &:hover {
       background-color: lighten(@colorAction, 20);
+      .gradientLinearVertical(@colorMain, darken(@colorMain, 20), 50%, 50%);
+    }
+  }
+  &.interaction {
+    .gradientLinearVertical(@colorInteraction, darken(@colorInteraction, 10), 50%, 50%);
+    &:hover {
+      .gradientLinearVertical(lighten(@colorInteraction, 10), @colorInteraction, 50%, 50%);
+    }
+  }
+  &.interactionAlt {
+    .gradientLinearVertical(@colorInteractionAlt, darken(@colorInteractionAlt, 10), 50%, 50%);
+    color: #000;
+    &:hover {
+      .gradientLinearVertical(lighten(@colorInteractionAlt, 10), @colorInteractionAlt, 50%, 50%);
     }
   }
 }
 
 input[type=submit] {
-  background-color: @colorAction;
+  .gradientLinearVertical(@colorAction, darken(@colorAction, 10), 50%, 50%);
   &:hover {
-    background-color: lighten(@colorAction, 20);
+    .gradientLinearVertical(lighten(@colorAction, 10), @colorAction, 50%, 50%);
   }
 }
 

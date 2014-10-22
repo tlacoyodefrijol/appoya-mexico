@@ -7,10 +7,13 @@ app.controller('ControllerLogin', ['$rootScope', '$scope', '$http', '$location',
         if($cookieStore.get('profile') === 'visitante' || typeof $cookieStore.get('profile') === 'undefined') {
             $rootScope.isLogged = false;
         } else {
+            $scope.userName = $cookieStore.get('userUserName');
+            $scope.userId = $cookieStore.get('userId');
             $rootScope.isLogged = true;
         }
         $scope.doLogout = function () {
-            console.log('doLogout');
+            $cookieStore.remove('userId');
+            $cookieStore.remove('userUserName');
             $cookieStore.remove('profile');
             $cookieStore.remove('viewAs');
             $cookieStore.remove('profiles');
@@ -36,10 +39,13 @@ app.controller('ControllerLogin', ['$rootScope', '$scope', '$http', '$location',
                 .success(function (data) {
                     if (!data.success) {
                         $scope.message = data.info;
+                        $scope.showMessage = true;
                     }
                     else {
-                        $cookieStore.put('profile', data.data[0].id);
-                        $cookieStore.put('viewAs', data.data[0].id);
+                        $cookieStore.put('userId', data.data.id);
+                        $cookieStore.put('userUserName',data.data.username);
+                        $cookieStore.put('profile', data.data.profile[0].id);
+                        $cookieStore.put('viewAs', data.data.profile[0].id);
                         $cookieStore.put('profiles', data.data);
                         $rootScope.isLogged = true;
 
