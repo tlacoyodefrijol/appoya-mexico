@@ -14,3 +14,32 @@
     }
   }
 }
+.grid{
+  .clearfix;
+  li{
+    display: block;
+    float: left;
+    position: relative;
+    margin-right: 1%;
+    margin-bottom: 1em;
+    &.cols-4{
+      width: 24%;
+      &:nth-child(0n+4)
+      {
+        margin-right: 0;
+      }
+    }
+    .title{
+      .boxSizing;
+      color: #FFF;
+      font-size: 2.5em;
+      padding: 1rem;
+      position: absolute;
+      top:0;
+      bottom: 0;
+      text-decoration: none;
+      .textShadow(@x:.125rem,@y:0,@blur: .35rem);
+      z-index: 1;
+    }
+  }
+}

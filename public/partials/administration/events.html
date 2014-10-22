@@ -15,9 +15,12 @@
         </form>
         {{messageEvent}}<br/>
     </div>
-    <ul>
-        <li data-ng-repeat="event in events"><a href="/evento/{{event.id}}">{{event.name}}</a>
-            <button data-ng-click="deleteEvent(event.id)" data-ng-if="isOwner">Eliminar</button>
+    <ul class="grid">
+        <li data-ng-repeat="event in events" class="cols-4"><a href="/evento/{{event.id}}">
+            <img src="/styles/images/reforestaThumb.png" alt="{{event.name}}" />
+            <h3 class="title">{{event.name}}</h3>
+        </a>
+            <button data-ng-click="deleteEvent(event.id)" data-ng-if="isCreator(event.creator)">Eliminar</button>
         </li>
     </ul>
 </div>
