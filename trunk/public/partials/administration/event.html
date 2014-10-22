@@ -1,14 +1,14 @@
-<div id="contentContainer" data-ng-controller="ControllerEvent" data-ng-init="updateLists()">
-    <h2>{{event.name}}</h2>
+<div id="contentContainer" data-ng-controller="ControllerEvent" data-ng-init="init()">
+    <h2>{{eventTitle}}</h2>
 
     <form data-ng-if="isOwner">
         <h3>Editar datos del evento</h3>
         <label>Nombre</label>
-        <input type="text" data-ng-model="eventName"/>
+        <input type="text" data-ng-model="event.name"/>
         <label>Fecha de inicio</label>
-        <input type="text" name="eventDateBegin" data-ng-model="eventDateBegin" required/>
+        <input type="text" name="eventDateBegin" data-ng-model="event.beginning" required/>
         <label>Fecha de fin</label>
-        <input type="text" name="eventDateEnd" data-ng-model="eventDateEnd" required/>
+        <input type="text" name="eventDateEnd" data-ng-model="event.end" required/>
         <button data-ng-click="updateInfo()">Guardar</button>
     </form>
     {{messageUpdate}}

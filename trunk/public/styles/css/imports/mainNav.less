@@ -1,18 +1,20 @@
 #mainNav
 {
-  background-color: darken(@colorMain, 20);
+  background-color: darken(@colorAction, 10);
   a{
-    border-right: solid .0625em darken(@colorMain ,50);
+    border-right: solid .0625em darken(@colorAction ,20);
     color: #FFF;
     display: block;
     float: left;
     text-decoration: none;
     padding: 1em;
     &:hover{
-      background-color: lighten(@colorMain, 20);
+      .gradientLinearVertical(lighten(@colorAction, 20), @colorAction, 50%, 50%);
     }
     span{
       font-size: 1.5em;
+      margin-right: .5rem;
+      vertical-align: bottom;
     }
   }
 }

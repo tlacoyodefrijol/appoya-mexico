@@ -14,7 +14,7 @@ appoya.use(bodyParser.json());
 appoya.use(bodyParser.urlencoded({extended: true}));
 appoya.use(cookieParser());
 appoya.use(session({
-    secret: '<lernittoken>',
+    secret: '<appoyatoken>',
     saveUninitialized: false,
     resave: true
 }));

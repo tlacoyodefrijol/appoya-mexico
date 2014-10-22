@@ -38,7 +38,7 @@ module.exports = (function () {
                         req.session.userId = user.id;
                         req.session.userProfile = user.profile;
                         //req.session.userObject = find;
-                        res.send(new ResultObject(true, user.profile, "Datos correctos", ResultObject.prototype.ALL_OK));
+                        res.send(new ResultObject(true, user, "Datos correctos", ResultObject.prototype.ALL_OK));
                     }
                 }
             })

@@ -20,15 +20,21 @@ app.controller('ControllerUsers', ['$window', '$rootScope', '$scope', '$routePar
             $scope.user.profile = $scope.role;
             FactoryUsers.addOne($scope.user)
                 .success(function (data) {
-                    $scope.message = data.info;
-                    if ($scope.isWidget) {
-                        $cookieStore.put('profile', data.data.profile[0]);
-                        $cookieStore.put('viewAs', data.data.profile[0]);
-                        $cookieStore.put('profiles', data.data.profile);
-                        $rootScope.isLogged = true;
-                        $window.location.reload();
+                    if (!data.success) {
+                        $scope.message = data.info;
+                        $scope.showMessage = true;
                     } else {
-                        $scope.updateList();
+                        if ($scope.isWidget) {
+                            $cookieStore.put('userId', data.data.id);
+                            $cookieStore.put('userUserName', data.data.username);
+                            $cookieStore.put('profile', data.data.profile[0]);
+                            $cookieStore.put('viewAs', data.data.profile[0]);
+                            $cookieStore.put('profiles', data.data.profile);
+                            $rootScope.isLogged = true;
+                            $window.location.reload();
+                        } else {
+                            $scope.updateList();
+                        }
                     }
 
                 });
