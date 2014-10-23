@@ -1,13 +1,12 @@
-app.factory('FactoryEvents', ['$http',
-    function ($http) {
+app.factory('FactoryEvents', ['$http', '$q',
+    function ($http, $q) {
 
         var _events = {};
         var _urlBase = '/api/events/';
         var _urlBaseOne = '/api/event/';
 
 
-        _events.getOne = function(_id)
-        {
+        _events.getOne = function (_id) {
             return $http({
                 method: 'post',
                 url: _urlBaseOne,
@@ -23,8 +22,7 @@ app.factory('FactoryEvents', ['$http',
             });
         };
 
-        _events.updateOne = function(obj)
-        {
+        _events.updateOne = function (obj) {
             return $http({
                 method: 'post',
                 url: _urlBaseOne + 'update',
@@ -32,8 +30,7 @@ app.factory('FactoryEvents', ['$http',
             });
         };
 
-        _events.deleteOne = function(_id)
-        {
+        _events.deleteOne = function (_id) {
             return $http({
                 method: 'post',
                 url: _urlBaseOne + 'delete',
@@ -41,29 +38,33 @@ app.factory('FactoryEvents', ['$http',
             });
         };
 
-        _events.enrollOne = function(obj)
-        {
+        _events.enrollOne = function (obj) {
             return $http({
                 method: 'post',
                 url: _urlBaseOne + 'enroll',
                 data: obj
             });
         };
-        _events.withdrawOne = function(_id)
-        {
+        _events.withdrawOne = function (_id) {
             return $http({
                 method: 'post',
                 url: _urlBaseOne + 'withdraw',
                 data: {id: _id}
             });
         };
-        _events.enrollments = function(obj)
-        {
+        _events.enrollments = function (obj) {
             return $http({
                 method: 'post',
                 url: _urlBaseOne + 'enrollments',
                 data: obj
             });
+        };
+        _events.enrollment = function (obj) {
+            return $http({
+                method: 'post',
+                url: _urlBaseOne + 'enrollment',
+                data: obj
+            })
         };
         _events.get = function (_obj) {
             return $http({
@@ -75,7 +76,7 @@ app.factory('FactoryEvents', ['$http',
         _events.count = function () {
             return $http({
                 method: 'post',
-                url: _urlBase+'count/active'
+                url: _urlBase + 'count/active'
             });
         };
 

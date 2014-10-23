@@ -47,7 +47,7 @@ app.controller('ControllerEvents', ['$scope', '$cookieStore', 'FactoryEvents',
             if (id === $cookieStore.get('userId') || $cookieStore.get('profile') === 'master' || $cookieStore.get('profile') === 'secretaria') {
                 return true;
             }
-        }
+        };
 
         function getEvents() {
             FactoryEvents.get({status: 'available'})
@@ -55,5 +55,17 @@ app.controller('ControllerEvents', ['$scope', '$cookieStore', 'FactoryEvents',
                     $scope.events = data.data;
                 });
         }
-    }])
-;
+
+        $scope.isEnrolled = function (id) {
+            var _isEnrolled = false;
+            var obj = {
+                event: id,
+                user: $cookieStore.get('userId')
+            };
+            FactoryEvents.enrollment(obj)
+                .success(function (data) {
+                    _isEnrolled = true;
+                    console.log(data)
+                })
+        };
+    }]);

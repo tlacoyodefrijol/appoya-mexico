@@ -29,17 +29,25 @@
         margin-right: 0;
       }
     }
+    .info{
+      .boxSizing;
+      padding: 1rem;
+      position: absolute;
+      top:0;
+      text-decoration: none;
+      z-index: 1;
+    }
     .title{
       .boxSizing;
       color: #FFF;
       font-size: 2.5em;
-      padding: 1rem;
-      position: absolute;
-      top:0;
-      bottom: 0;
-      text-decoration: none;
+      margin-bottom: 1rem;
+      padding: 0;
       .textShadow(@x:.125rem,@y:0,@blur: .35rem);
-      z-index: 1;
+    }
+    button{
+      margin-top: -.5rem;
+      .transform(rotate(-10deg));
     }
   }
 }
