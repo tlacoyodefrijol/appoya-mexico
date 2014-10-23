@@ -1,3 +1,19 @@
 <div data-ng-controller="ControllerUser">
 <h2>{{user.name}}</h2>
 </div>
+
+
+<link href="/styles/css/imports/avatar.css" rel="stylesheet">
+<div ng-controller="ControllerAvatar" id="avatarCreator">
+    <div id="avatarContainer">
+        <div id="avatarBody" class="avatarPart"></div>
+        <div id="avatarHead" class="avatarPart"></div>
+        <div id="avatarHair" class="avatarPart"></div>
+    </div>
+    <a data-ng-click="bodyPrev" id="bodyPrev">&laquo;</a>
+    <a data-ng-click="bodyNext" id="bodyNext">&raquo;</a>
+    <a data-ng-click="facePrev" id="facePrev">&laquo;</a>
+    <a data-ng-click="faceNext" id="faceNext">&raquo;</a>
+    <a data-ng-click="hairPrev" id="hairPrev">&laquo;</a>
+    <a data-ng-click="hairNext" id="hairNext">&raquo;</a>
+</div>
