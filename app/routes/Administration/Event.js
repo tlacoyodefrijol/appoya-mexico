@@ -134,7 +134,7 @@ var api = {
                     .findOne({_id: req.body.id})
                     .exec(function (err, find) {
                         if (err) {
-                            rres.send(new ResultObject(false, err, "Ocurrio un error durante la busqueda."
+                            res.send(new ResultObject(false, err, "Ocurrio un error durante la busqueda."
                                 , ResultObject.prototype.BAD_REQUEST));
                         }
                         else if (!find) {
@@ -488,6 +488,63 @@ var api = {
                 }
 
                 async.waterfall([checkInput, findEnrollments], cb);
+            });
+        router.route("/event/enrollment")
+            .post(function (req, res) {
+
+                var ro = new ResultObject();
+                var err = null;
+
+                function checkInput(cb) {
+                    if (!req.body.event || !req.body.user) {
+                        ro.success = false;
+                        ro.info = 'Event and User are a required fields';
+                        ro.code = ro.BAD_REQUEST;
+                        err = new Error();
+                    }
+                    cb(err, ro);
+                }
+
+                function findEnrollment(ro, cb) {
+                    var params = {};
+                    params.event = req.body.event;
+                    params.user = req.body.user;
+
+                    var query = Enrollment
+                        .findOne(params)
+                        .select("_id date role user")
+                        .populate({path: 'user', select: 'name lastname profile serial'});
+                    query.exec(function(fail, find){
+                        if (fail) {
+                            ro.success = false;
+                            ro.info = "Ocurrio un error durante la busqueda.";
+                            ro.code = ro.BAD_REQUEST;
+                            err = new Error();
+                        }
+                        else if (!find) {
+                            ro.success = false;
+                            ro.info = "Usuario no inscrito.";
+                            err = new Error();
+                        }
+                        else {
+                            ro.data = find;
+                        }
+                        cb(err, ro);
+                    });
+                }
+
+                function cb(err, ro) {
+                    if (!err) {
+                        ro.success = true;
+                        ro.code = ro.ALL_OK;
+                    }
+                    else {
+                        ro.success = false;
+                    }
+                    res.json(ro);
+                }
+
+                async.waterfall([checkInput, findEnrollment], cb);
             });
     }
 };
