@@ -43,6 +43,17 @@ app.controller('ControllerEvents', ['$scope', '$cookieStore', 'FactoryEvents',
                 });
         };
 
+        $scope.enrollInEvent = function(_event)
+        {
+            var obj = {
+                user: $cookieStore.get('userId'),
+                event: _event,
+                role: 'voluntario'
+            };
+            FactoryEvents.enrollOne(obj).success(function(data){
+                getEvents();
+            })
+        };
         $scope.isCreator = function (id) {
             if (id === $cookieStore.get('userId') || $cookieStore.get('profile') === 'master' || $cookieStore.get('profile') === 'secretaria') {
                 return true;
@@ -53,19 +64,23 @@ app.controller('ControllerEvents', ['$scope', '$cookieStore', 'FactoryEvents',
             FactoryEvents.get({status: 'available'})
                 .success(function (data) {
                     $scope.events = data.data;
+                    for (var i = 0; i < $scope.events.length; i++) {
+                        checkEnroll(i)
+                    }
                 });
         }
 
-        $scope.isEnrolled = function (id) {
-            var _isEnrolled = false;
-            var obj = {
-                event: id,
+        function checkEnroll(index) {
+            var obj = {};
+            var _ev = $scope.events[index]
+            obj = {
+                event: _ev.id,
                 user: $cookieStore.get('userId')
             };
             FactoryEvents.enrollment(obj)
                 .success(function (data) {
-                    _isEnrolled = true;
-                    console.log(data)
-                })
-        };
+                    _ev.isEnrolled = data.success;
+                });
+
+        }
     }]);

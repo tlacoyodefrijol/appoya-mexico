@@ -1,6 +1,8 @@
 <div id="contentContainer" data-ng-controller="ControllerEvent" data-ng-init="init()">
     <h2>{{eventTitle}}</h2>
 
+    <img id="banner" src="/styles/images/fondo-bosque.png" alt="{{eventTitle}}"/>
+
     <form data-ng-if="isOwner">
         <h3>Editar datos del evento</h3>
         <label>Nombre</label>
@@ -8,10 +10,19 @@
         <label>Fecha de inicio</label>
         <input type="text" name="eventDateBegin" data-ng-model="event.beginning" required/>
         <label>Fecha de fin</label>
+        <label>Descripción</label>
+        <textarea data-ng-model="event.description"></textarea>
         <input type="text" name="eventDateEnd" data-ng-model="event.end" required/>
-        <button data-ng-click="updateInfo()">Guardar</button>
+        <button data-ng-click="updateInfo()" class="action">Guardar</button>
+        {{messageUpdate}}
     </form>
-    {{messageUpdate}}
+
+    <div id="eventInfo" data-ng-if="!isOwner">
+        <h3 class="flag">Descripción</h3>
+
+        <p>{{event.description}}</p>
+    </div>
+
     <form data-ng-if="isOwner">
         <fieldset>
             <h3>Buscar usuario por:</h3>
@@ -28,7 +39,7 @@
         </fieldset>
     </form>
     {{messageSearch}}
-    <ul>
+    <ul id="menuEnrolled">
         <li data-ng-repeat="user in availableUsers">{{user.name}} {{user.lastname}}
             <button data-ng-click="enrollUser(user)">Enrolar</button>
         </li>
@@ -42,17 +53,26 @@
             <a href="#aliados" role="tab" data-toggle="tab">Aliados</a>
         </li>
     </ul>
-    <div class="tab-content">
+    <div id="enrollTab" class="tab-content">
         <div class="tab-pane active" id="voluntarios">
-            <ul>
-                <li data-ng-repeat="volunteer in volunteerList"><a href="/usuario/{{volunteer.user.id}}">{{volunteer.user.name}}
-                    {{volunteer.user.lastname}}</a>
+            <ul class="grid">
+                <li data-ng-repeat="volunteer in volunteerList">
+                    <a href="/usuario/{{volunteer.user.id}}">
+                        <div id="avatarCreator">
+                            <div id="avatarContainer">
+                                <div id="avatarBody" class="avatarPart"></div>
+                                <div id="avatarHead" class="avatarPart"></div>
+                                <div id="avatarHair" class="avatarPart"></div>
+                            </div>
+                        </div>
+                        {{volunteer.user.username}}
+                    </a>
                     <button data-ng-click="withdrawUser(student.id)" data-ng-if="isOwner">Retirar</button>
                 </li>
             </ul>
         </div>
         <div class="tab-pane" id="aliados">
-            <ul>
+            <ul class="filterList">
                 <li data-ng-repeat="ally in allyList"><a href="/usuario/{{ally.user.id}}">{{ally.user.name}}
                     {{ally.user.lastname}}</a>
                     <button data-ng-click="withdrawUser(teacher.id)" data-ng-if="isOwner">Retirar</button>

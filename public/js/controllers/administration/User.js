@@ -1,14 +1,39 @@
-app.controller('ControllerUser', ['$scope', '$http', '$routeParams',
-    function ($scope, $http, $routeParams) {
-        $http({
-            method: 'post',
-            url: '/api/administration/user/',
-            data: {id:$routeParams.id}
-        })
+app.controller('ControllerUser', ['$scope', '$http', '$routeParams', '$cookieStore', 'FactoryUsers',
+    function ($scope, $http, $routeParams, $cookieStore, FactoryUsers) {
+
+        $scope.editMode = false;
+
+        if ($routeParams.id === $cookieStore.get('userId')) {
+            $scope.welcomeText = 'Bienvenido';
+            $scope.isOwner = true;
+        }
+
+        FactoryUsers.getOne($routeParams.id)
             .success(function (data) {
                 $scope.user = data.data;
-            })
-            .error(function (data) {
-                $scope.message = 'No se encontraron resultados';
+                $scope.userName = data.data.name;
             });
+        $scope.toggleEdit = function () {
+            if ($scope.editMode) {
+                $scope.editMode = false;
+            } else {
+                $scope.editMode = true;
+            }
+        };
+        $scope.updateUser = function () {
+            console.log('aqui ', $scope.user)
+            var obj = {
+                id: $scope.user.id,
+                name: $scope.user.name,
+                lastname: $scope.user.lastname,
+            };
+            if (typeof $scope.user.password !== 'undefined' && $scope.user.password !== '') {
+                obj.secretword = $scope.user.password
+            }
+            FactoryUsers.updateOne(obj)
+                .success(function (data) {
+                    $scope.userName =  $scope.user.name;
+                    $scope.toggleEdit();
+                });
+        };
     }]);
