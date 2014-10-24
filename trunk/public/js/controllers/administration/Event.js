@@ -10,10 +10,7 @@ app.controller('ControllerEvent', ['$scope', '$routeParams', 'FactoryEvents', 'F
         $scope.init = function () {
             FactoryEvents.getOne(eventId)
                 .success(function (data) {
-                    $scope.event.name = data.data.name;
-                    $scope.event.beginning = data.data.beginning;
-                    $scope.event.end = data.data.end;
-                    $scope.event.creator = data.data.creator;
+                    $scope.event = data.data;
                     $scope.eventTitle = $scope.event.name;
                     if ($cookieStore.get('profile') === 'master' || $scope.event.creator === $cookieStore.get('userId')) {
                         $scope.isOwner = true;
@@ -80,7 +77,8 @@ app.controller('ControllerEvent', ['$scope', '$routeParams', 'FactoryEvents', 'F
                     name: $scope.event.name,
                     beginning: new Date($scope.event.beginning),
                     end: new Date($scope.event.end),
-                    creator: $scope.event.creator
+                    creator: $scope.event.creator,
+                    description: $scope.event.description
                 };
                 FactoryEvents.updateOne(_grp)
                     .success(function (data) {

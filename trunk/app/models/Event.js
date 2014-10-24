@@ -7,7 +7,8 @@ var schemaEvent = new Schema({
         name: String,
         creator:{type: Schema.Types.ObjectId, ref: 'User'},
         beginning: Date,
-        end: Date
+        end: Date,
+        description: String
     },
     {collection:"Event"});
 

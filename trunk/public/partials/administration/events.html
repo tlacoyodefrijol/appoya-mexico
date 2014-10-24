@@ -15,7 +15,7 @@
         </form>
         {{messageEvent}}<br/>
     </div>
-    <ul class="grid">
+    <ul id="gridEvents" class="grid">
         <li data-ng-repeat="event in events" class="cols-4">
             <a href="/evento/{{event.id}}">
                 <img src="/styles/images/reforestaThumb.png" alt="{{event.name}}"/>
@@ -24,9 +24,15 @@
                     <h3 class="title">{{event.name}}</h3>
                 </div>
             </a>
-            <button data-ng-click="isEnrolled(event.id)" data-ng-if="!isCreator(event.creator) && isLogged" class="interactionAlt right">Únete</button>
-            <button data-ng-if="!isCreator(event.creator) && !isLogged" class="interaction right">Ingresar</button>
-            <button data-ng-click="deleteEvent(event.id)" data-ng-if="isCreator(event.creator)" class="right">Eliminar</button>
+            <button data-ng-click="enrollInEvent(event.id)"
+                    data-ng-if="!isCreator(event.creator) && isLogged && !event.isEnrolled"
+                    class="interactionAlt right">Únete
+            </button>
+            <button data-ng-if="!isCreator(event.creator) && !isLogged" class="interaction right" data-toggle="modal"
+                    data-target="#formLogin">Ingresar
+            </button>
+            <button data-ng-click="deleteEvent(event.id)" data-ng-if="isCreator(event.creator)" class="right">Eliminar
+            </button>
         </li>
     </ul>
 </div>

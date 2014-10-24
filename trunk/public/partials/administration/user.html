@@ -1,16 +1,35 @@
-<div data-ng-controller="ControllerUser">
-<h2>{{user.name}}</h2>
-</div>
-<div ng-controller="ControllerAvatar" id="avatarCreator">
-    <div id="avatarContainer">
-        <div id="avatarBody" class="avatarPart"></div>
-        <div id="avatarHead" class="avatarPart"></div>
-        <div id="avatarHair" class="avatarPart"></div>
+<div id="contentContainer" data-ng-controller="ControllerUser">
+    <h2>{{welcomeText}} {{userName}}</h2>
+    <div data-ng-if="!editMode">
+        <div>
+            <span>Nombre de usuario:</span> {{user.username}}
+        </div>
+        <div>
+            <span>Nombre:</span> {{user.name}} {{user.lastname}}
+        </div>
+        <button data-ng-if="isOwner" data-ng-click="toggleEdit()" class="interaction">Editar</button>
     </div>
-    <a data-ng-click="bodyPrev" id="bodyPrev">&laquo;</a>
-    <a data-ng-click="bodyNext" id="bodyNext">&raquo;</a>
-    <a data-ng-click="facePrev" id="facePrev">&laquo;</a>
-    <a data-ng-click="faceNext" id="faceNext">&raquo;</a>
-    <a data-ng-click="hairPrev" id="hairPrev">&laquo;</a>
-    <a data-ng-click="hairNext" id="hairNext">&raquo;</a>
+    <form data-ng-if="editMode">
+        <label>Nombre</label>
+        <input type="text" data-ng-model="user.name" required/>
+        <label>Apellido</label>
+        <input type="text" data-ng-model="user.lastname" required/>
+        <label>Nueva contraseña</label>
+        <input type="password" data-ng-model="user.password" />
+        <button data-ng-if="isOwner" data-ng-click="updateUser()" class="action right">Guardar</button>
+        <button data-ng-if="isOwner" data-ng-click="toggleEdit()" class="error right">Cancelar</button>
+    </form>
+    <div ng-controller="ControllerAvatar" id="avatarCreator">
+        <div id="avatarContainer">
+            <div id="avatarBody" class="avatarPart"></div>
+            <div id="avatarHead" class="avatarPart"></div>
+            <div id="avatarHair" class="avatarPart"></div>
+        </div>
+        <a data-ng-click="bodyPrev" id="bodyPrev">&laquo;</a>
+        <a data-ng-click="bodyNext" id="bodyNext">&raquo;</a>
+        <a data-ng-click="facePrev" id="facePrev">&laquo;</a>
+        <a data-ng-click="faceNext" id="faceNext">&raquo;</a>
+        <a data-ng-click="hairPrev" id="hairPrev">&laquo;</a>
+        <a data-ng-click="hairNext" id="hairNext">&raquo;</a>
+    </div>
 </div>

@@ -9,7 +9,6 @@
 @colorGray: #CCC;
 @colorDarkGray: #919191;
 
-
 body {
   background-color: #F1F1F1;
   font-family: 'Open Sans Regular', sans-serif;
@@ -36,16 +35,22 @@ h2 {
 
 h3 {
   color: #000;
-  font-size: 2em;
+  font-size: 1.5em;
   padding: 1em 0;
 }
-img{
+
+p {
+  line-height: 1.25;
+  margin-bottom: 1em;
+}
+
+img {
   display: block;
   width: 100%;
   height: auto;
 }
-#logoMain
-{
+
+#logoMain {
   background-image: url('/styles/images/logo.png');
   background-position: center center;
   background-repeat: no-repeat;
@@ -57,8 +62,7 @@ img{
   position: relative;
   width: 8.5em;
   height: 4.5em;
-  a
-  {
+  a {
     position: absolute;
     text-indent: 200%;
     top: 0;
@@ -67,6 +71,7 @@ img{
     height: 100%;
   }
 }
+
 #mainContainer {
   .boxSizing;
   padding: 0 1em;
@@ -92,7 +97,27 @@ img{
   right: 0;
   width: 20em;
 }
-
+.flag{
+  .boxSizing;
+  color: #FFF;
+  display: inline-block;
+  .gradientLinearVertical(@colorMain, darken(@colorMain, 10), 50%, 50%);
+  margin-bottom: 1em;
+  padding: .5rem;
+  position: relative;
+  &::after{
+    border: .98em solid;
+    border-left: 0 solid @colorMain;
+    border-top-color: @colorMain;
+    border-bottom-color: darken(@colorMain, 10);
+    border-right-color: transparent;
+    content:'';
+    display: block;
+    position: absolute;
+    top: 0;
+    right: -.97em;
+  }
+}
 @import 'imports/mainHeader';
 @import 'imports/mainNav';
 @import 'imports/dashboard';
@@ -100,6 +125,7 @@ img{
 @import 'imports/lists';
 @import 'imports/alert';
 @import 'imports/avatar';
+@import 'imports/events';
 
 .left {
   float: left;

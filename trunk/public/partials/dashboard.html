@@ -1,9 +1,36 @@
 <div id="contentContainer" data-ng-controller="ControllerDashboard">
     <div id="dashboardContent">
-        <div data-ng-include="'/partials/administration/dashboardProfile-'+profile+'.html'"></div>
+        <section id="sectionAdministration" class="clearfix">
+            <a href="/usuarios/voluntario" class="statistic"><span>{{countVolunteers}}</span> Voluntarios</a>
+            <a href="/usuarios/aliado" class="statistic"><span>{{countAllies}}</span> Aliados</a>
+            <a href="/eventos" class="statistic"><span>{{countEvents}}</span> Eventos</a>
+        </section>
     </div>
-    <h2>Eventos</h2>
-    <ul>
-        <li data-ng-repeat="event in eventList"><a href="/evento/{{event.id}}">{{event.name}}</a></li>
-    </ul>
+    <div data-ng-controller="ControllerEvents" data-ng-init="init()">
+        <h2>Eventos</h2>
+
+        <ul id="gridEvents" class="grid">
+            <li data-ng-repeat="event in events" class="cols-4">
+                <a href="/evento/{{event.id}}">
+                    <img src="/styles/images/reforestaThumb.png" alt="{{event.name}}"/>
+
+                    <div class="info">
+                        <h3 class="title">{{event.name}}</h3>
+                    </div>
+                </a>
+                <button data-ng-click="enrollInEvent(event.id)"
+                        data-ng-if="!isCreator(event.creator) && isLogged && !event.isEnrolled"
+                        class="interactionAlt right">Únete
+                </button>
+                <button data-ng-if="!isCreator(event.creator) && !isLogged" class="interaction right"
+                        data-toggle="modal"
+                        data-target="#formLogin">Ingresar
+                </button>
+                <button data-ng-click="deleteEvent(event.id)" data-ng-if="isCreator(event.creator)" class="right">
+                    Eliminar
+                </button>
+            </li>
+        </ul>
+    </div>
+    <h2>Noticias</h2>
 </div>
