@@ -1,0 +1,43 @@
+#avatarCreator {
+  width: 8em;
+  height: 8em;
+  position: relative;
+  outline: 1px dotted #f00;
+}
+#avatarCreator #avatarContainer {
+  width: 4em;
+  height: 8em;
+  position: absolute;
+  top: 0;
+  left: 2em;
+  outline: 1px dotted #0f0;
+}
+#avatarCreator #avatarContainer .avatarPart {
+  background-image: url("/img/avataratlas.png");
+  outline: 1px dotted #00f;
+  background-repeat: no-repeat;
+}
+#avatarCreator #avatarContainer #avatarBody {
+  position: absolute;
+  top: 4em;
+  left: 0;
+  width: 4em;
+  height: 4em;
+  background-position: 0em -8em;
+}
+#avatarCreator #avatarContainer #avatarHead {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4em;
+  height: 4em;
+  background-position: 0em 0em;
+}
+#avatarCreator #avatarContainer #avatarHair {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4em;
+  height: 4em;
+  background-position: 0em -4em;
+}
