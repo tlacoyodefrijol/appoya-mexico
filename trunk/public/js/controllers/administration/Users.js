@@ -40,11 +40,11 @@ app.controller('ControllerUsers', ['$window', '$rootScope', '$scope', '$routePar
                 });
         };
         $scope.updateList = function () {
-            searchUser($scope.fieldStudent);
+            searchUser($scope.fieldUser);
         };
 
         $scope.predictUser = debounce(function () {
-            searchUser($scope.fieldStudent);
+            searchUser($scope.fieldUser);
         }, 250);
 
         function searchUser(name) {

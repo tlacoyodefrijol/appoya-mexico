@@ -1,27 +1,90 @@
-#banner{
+#banner {
   margin-bottom: 1em;
 }
-#eventInfo{
-  p{
+
+#eventInfo {
+  p {
     .boxSizing;
     padding: 1em;
   }
 }
-#menuEnrolled{
+
+#menuEnrolled {
   margin-top: 1em;
+  li {
+    padding-left: .5em;
+    &:nth-child(odd) {
+      background-color: lighten(@colorMain, 45);
+    }
+  }
 }
-#enrollTab
-{
+
+#enrollTab {
   .grid {
     border: .0655em solid #DDD;
     border-top: none;
     .boxSizing;
     padding: .5em;
-    li{
+    li {
       text-align: center;
-      a{
+      a {
         color: #000;
         text-decoration: none;
+      }
+    }
+  }
+}
+.eventPrizes{
+  margin: 1em 0;
+  li{
+    height: 6em;
+    width: 6em;
+  }
+  .prize{
+    background-image: url('/styles/images/premios_fondo.png');
+    background-repeat: no-repeat;
+    width: 5em;
+    height: 5em;
+    padding-top: 5em;
+    text-align: center;
+    .icon{
+      background-image: url('/styles/images/premios_evento.png');
+      background-repeat: no-repeat;
+      background-position: top left;
+      background-size: 27em 3em;
+      display: block;
+      overflow: hidden;
+      margin-top: -4em;
+      margin-left: 1em;
+      margin-bottom: 1em;
+      width: 3em;
+      height: 3em;
+      &.prize0{
+        background-position: 0 0;
+      }
+      &.prize1{
+        background-position: -3em 0;
+      }
+      &.prize2{
+        background-position: -6em 0;
+      }
+      &.prize3{
+        background-position: -9em 0;
+      }
+      &.prize4{
+        background-position: -12em 0;
+      }
+      &.prize5{
+        background-position: -15em 0;
+      }
+      &.prize6{
+        background-position: -18em 0;
+      }
+      &.prize7{
+        background-position: -21em 0;
+      }
+      &.prize8{
+        background-position: -24em 0;
       }
     }
   }

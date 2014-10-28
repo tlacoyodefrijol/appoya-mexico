@@ -1,5 +1,5 @@
-app.factory('FactoryEvents', ['$http', '$q',
-    function ($http, $q) {
+app.factory('FactoryEvents', ['$http',
+    function ($http) {
 
         var _events = {};
         var _urlBase = '/api/events/';
@@ -45,6 +45,7 @@ app.factory('FactoryEvents', ['$http', '$q',
                 data: obj
             });
         };
+
         _events.withdrawOne = function (_id) {
             return $http({
                 method: 'post',
@@ -64,7 +65,7 @@ app.factory('FactoryEvents', ['$http', '$q',
                 method: 'post',
                 url: _urlBaseOne + 'enrollment',
                 data: obj
-            })
+            });
         };
         _events.get = function (_obj) {
             return $http({

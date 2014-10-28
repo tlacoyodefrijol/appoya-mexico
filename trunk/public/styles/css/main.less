@@ -39,6 +39,13 @@ h3 {
   padding: 1em 0;
 }
 
+h4 {
+  color: @colorMain;
+  font-size: 1.25em;
+  font-style: italic;
+  padding: 1em 0;
+}
+
 p {
   line-height: 1.25;
   margin-bottom: 1em;
@@ -102,11 +109,17 @@ img {
   color: #FFF;
   display: inline-block;
   .gradientLinearVertical(@colorMain, darken(@colorMain, 10), 50%, 50%);
+  line-height: 1.35;
   margin-bottom: 1em;
   padding: .5rem;
   position: relative;
+  .big{
+    display: block;
+    font-size: 2.5em;
+    text-align: center;
+  }
   &::after{
-    border: .98em solid;
+    border: 1em solid;
     border-left: 0 solid @colorMain;
     border-top-color: @colorMain;
     border-bottom-color: darken(@colorMain, 10);
@@ -115,7 +128,7 @@ img {
     display: block;
     position: absolute;
     top: 0;
-    right: -.97em;
+    right: -1em;
   }
 }
 @import 'imports/mainHeader';
@@ -136,6 +149,9 @@ img {
   float: right;
   margin-left: 1em !important;
 }
-
+.clearBoth
+{
+  clear: both;
+}
 //Bootstrap
 @import 'imports/bootstrap/bootstrap';

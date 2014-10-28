@@ -19,6 +19,7 @@ app.controller('ControllerEvents', ['$scope', '$cookieStore', 'FactoryEvents',
                 name: $scope.event.name,
                 beginning: new Date($scope.event.beginning),
                 end: new Date($scope.event.end),
+                usermin: $scope.event.usermin,
                 creator: $cookieStore.get('userId')
             };
             if (_grp.end >= _grp.beginning) {
@@ -65,6 +66,10 @@ app.controller('ControllerEvents', ['$scope', '$cookieStore', 'FactoryEvents',
                 .success(function (data) {
                     $scope.events = data.data;
                     for (var i = 0; i < $scope.events.length; i++) {
+                        if(typeof $scope.events[i].usermin === 'undefined')
+                        {
+                            $scope.events[i].usermin = 0;
+                        }
                         checkEnroll(i)
                     }
                 });

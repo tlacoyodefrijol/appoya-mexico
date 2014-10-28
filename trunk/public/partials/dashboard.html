@@ -17,17 +17,11 @@
                     <div class="info">
                         <h3 class="title">{{event.name}}</h3>
                     </div>
+                <span data-ng-if="!isCreator(event.creator) && !event.isEnrolled"
+                      class="label interactionAlt right">Únete</span>
+                    <span class="label action right" data-ng-if="event.isEnrolled">Registrado</span>
                 </a>
-                <button data-ng-click="enrollInEvent(event.id)"
-                        data-ng-if="!isCreator(event.creator) && isLogged && !event.isEnrolled"
-                        class="interactionAlt right">Únete
-                </button>
-                <button data-ng-if="!isCreator(event.creator) && !isLogged" class="interaction right"
-                        data-toggle="modal"
-                        data-target="#formLogin">Ingresar
-                </button>
-                <button data-ng-click="deleteEvent(event.id)" data-ng-if="isCreator(event.creator)" class="right">
-                    Eliminar
+                <button data-ng-click="deleteEvent(event.id)" data-ng-if="isCreator(event.creator)" class="right">Eliminar
                 </button>
             </li>
         </ul>

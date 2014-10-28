@@ -3,6 +3,7 @@
   .boxSizing;
   color: #FFF;
   cursor: pointer;
+  display: inline-block;
   font-family: 'Open Sans Regular', sans-serif;
   font-size: 1em;
   padding: .625em;
@@ -66,7 +67,7 @@ select {
 }
 
 input {
-  &[type=text], &[type=password] {
+  &[type=text], &[type=password], &[type=number], &[type=date] {
     .removeSkin;
     .boxSizing;
     border: solid @colorGray .0625em;
@@ -74,6 +75,14 @@ input {
     font-size: 1em;
     padding: .5em;
   }
+}
+textarea{
+  .removeSkin;
+  .boxSizing;
+  border: solid @colorGray .0625em;
+  font-family: 'Open Sans Regular', sans-serif;
+  font-size: 1em;
+  padding: .5em;
 }
 
 form {
@@ -92,11 +101,18 @@ form {
     margin-bottom: 1em;
   }
   input {
-    &[type=text], &[type=password] {
+    &[type=text], &[type=password], &[type=number], &[type=date] {
       display: block;
       margin-bottom: 1em;
       width: 100%;
     }
+  }
+  textarea{
+    width: 100%;
+    height: 10em;
+  }
+  .button{
+    margin-bottom: 1em;
   }
 }
 
