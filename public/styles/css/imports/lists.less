@@ -36,6 +36,9 @@
       top:0;
       text-decoration: none;
       z-index: 1;
+      .flag {
+        margin-left: -1rem;
+      }
     }
     .title{
       .boxSizing;
@@ -45,9 +48,22 @@
       padding: 0;
       .textShadow(@x:.125rem,@y:0,@blur: .35rem);
     }
-    button{
+    .label{
       margin-top: -.5rem;
+      padding: .5em;
       .transform(rotate(-10deg));
+      &.action{
+        background-color: @colorAction;
+        color: #000;
+      }
+      &.interaction{
+        background-color: @colorInteraction;
+        color: #FFF;
+      }
+      &.interactionAlt{
+        background-color: @colorInteractionAlt;
+        color: #000;
+      }
     }
   }
 }

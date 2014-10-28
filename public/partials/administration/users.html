@@ -26,7 +26,7 @@
                 data-ng-change="updateList()">
         </select>
         <label>Nombre del {{role}}</label>
-        <input name="input" type="text" data-ng-model="fieldStudent" ng-change="predictUser()">
+        <input type="text" data-ng-model="fieldUser" ng-change="predictUser()" />
     </form>
     <ul class="filterList">
         <li data-ng-repeat="user in users">

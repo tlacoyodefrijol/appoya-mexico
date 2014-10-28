@@ -1,46 +1,71 @@
-<div id="contentContainer" data-ng-controller="ControllerEvent" data-ng-init="init()">
+<div id="contentContainer" data-ng-controller="ControllerEvent" data-ng-init="updateLists()">
     <h2>{{eventTitle}}</h2>
 
     <img id="banner" src="/styles/images/fondo-bosque.png" alt="{{eventTitle}}"/>
 
-    <form data-ng-if="isOwner">
+    <div data-ng-if="isOwner">
         <h3>Editar datos del evento</h3>
-        <label>Nombre</label>
-        <input type="text" data-ng-model="event.name"/>
-        <label>Fecha de inicio</label>
-        <input type="text" name="eventDateBegin" data-ng-model="event.beginning" required/>
-        <label>Fecha de fin</label>
-        <label>Descripción</label>
-        <textarea data-ng-model="event.description"></textarea>
-        <input type="text" name="eventDateEnd" data-ng-model="event.end" required/>
-        <button data-ng-click="updateInfo()" class="action">Guardar</button>
-        {{messageUpdate}}
-    </form>
 
+        <form name="eventInfo">
+            <h4>Datos del evento</h4>
+            <fieldset>
+                <label>Nombre</label>
+                <input type="text" data-ng-model="event.name"/>
+                <label>Fecha de inicio</label>
+                <input type="text" name="eventDateBegin" data-ng-model="event.beginning" required/>
+                <label>Fecha de fin</label>
+                <input type="text" name="eventDateEnd" data-ng-model="event.end" required/>
+                <label>Voluntarios necesarios</label>
+                <input type="number" name="eventUserNeeded.total" data-ng-model="event.usermin" required/>
+                <a href="javascript:void(0)" data-ng-if="event.usermin>100" class="button interaction">Solicitar premio
+                    personalizado</a>
+                <label class="clearBoth">Descripción</label>
+                <textarea data-ng-model="event.description"></textarea>
+            </fieldset>
+            <fieldset>
+                <h4>Premios disponibles</h4>
+                <ul class="grid eventPrizes">
+                    <li data-ng-repeat="prize in prizeAvailable">
+                        <label class="prize"><span class="icon {{prize.id}}"></span><input type="checkbox" data-ng-change="setPrizes(prize, isChecked)" data-ng-model="isChecked" ng-checked = "prize.isChecked" />{{prize.name}}</label>
+                    </li>
+                </ul>
+            </fieldset>
+            <button data-ng-click="updateInfo()" class="action">Guardar</button>
+            {{messageUpdate}}
+        </form>
+        <form>
+            <h3>Buscar usuario por:</h3>
+            <fieldset>
+                <select data-ng-model="profileType.option"
+                        data-ng-options="option.name for option in profileTypeOptions"
+                        data-ng-change="clearFields()">
+                </select>
+            </fieldset>
+            <fieldset>
+                <label>Nombre del usuario</label>
+                <input type="text" data-ng-model="fieldUser.text" ng-change="predictUser()"/>
+            </fieldset>
+        </form>
+        {{messageSearch}}
+    </div>
     <div id="eventInfo" data-ng-if="!isOwner">
         <h3 class="flag">Descripción</h3>
 
         <p>{{event.description}}</p>
+        <h3>Premios del evento</h3>
+        <ul class="grid eventPrizes">
+            <li data-ng-repeat="sPrize in prizeSelected" class="prize">
+                <span class="icon {{sPrize.id}}"></span>{{sPrize.name}}
+            </li>
+        </ul>
+        <button data-ng-if="!enrollment.success && isLogged" data-ng-click="enrollInEvent()" class="interactionAlt">
+            Únete
+        </button>
+        <button data-ng-if="enrollment.success" data-ng-click="withdrawUser('currentUser')" class="error">Abandonar
+        </button>
     </div>
-
-    <form data-ng-if="isOwner">
-        <fieldset>
-            <h3>Buscar usuario por:</h3>
-            <select name="userProfileType"
-                    data-ng-model="profileType"
-                    data-ng-options="option.name for option in profileTypeOptions"
-                    data-ng-init="profileType=profileTypeOptions[0]"
-                    data-ng-change="clearFields()">
-            </select>
-        </fieldset>
-        <fieldset>
-            <label>Nombre del usuario</label>
-            <input name="input" data-ng-model="fieldUser" data-ng-change="searchUser()">
-        </fieldset>
-    </form>
-    {{messageSearch}}
     <ul id="menuEnrolled">
-        <li data-ng-repeat="user in availableUsers">{{user.name}} {{user.lastname}}
+        <li data-ng-repeat="user in availableUsers"><a href="/usuario/{{user.id}}">{{user.name}} {{user.lastname}}</a>
             <button data-ng-click="enrollUser(user)">Enrolar</button>
         </li>
     </ul>
@@ -67,7 +92,7 @@
                         </div>
                         {{volunteer.user.username}}
                     </a>
-                    <button data-ng-click="withdrawUser(student.id)" data-ng-if="isOwner">Retirar</button>
+                    <button data-ng-click="withdrawUser(volunteer.id)" data-ng-if="isOwner">Retirar</button>
                 </li>
             </ul>
         </div>
@@ -75,7 +100,7 @@
             <ul class="filterList">
                 <li data-ng-repeat="ally in allyList"><a href="/usuario/{{ally.user.id}}">{{ally.user.name}}
                     {{ally.user.lastname}}</a>
-                    <button data-ng-click="withdrawUser(teacher.id)" data-ng-if="isOwner">Retirar</button>
+                    <button data-ng-click="withdrawUser(ally.id)" data-ng-if="isOwner">Retirar</button>
                 </li>
             </ul>
         </div>

@@ -11,6 +11,8 @@
             <input type="date" name="eventDateBegin" data-ng-model="event.beginning" required/>
             <label>Fecha de fin</label>
             <input type="date" name="eventDateEnd" data-ng-model="event.end" required/>
+            <label>Voluntarios necesarios</label>
+            <input type="number" name="eventDateEnd" data-ng-model="event.usermin" required/>
             <button type="submit">Agregar</button>
         </form>
         {{messageEvent}}<br/>
@@ -21,16 +23,13 @@
                 <img src="/styles/images/reforestaThumb.png" alt="{{event.name}}"/>
 
                 <div class="info">
+                    <div class="flag"><span class="big">{{event.usermin}}</span> voluntarios necesarios</div>
                     <h3 class="title">{{event.name}}</h3>
                 </div>
+                <span data-ng-if="!isCreator(event.creator) && !event.isEnrolled"
+                      class="label interactionAlt right">Únete</span>
+            <span class="label action right" data-ng-if="event.isEnrolled && !isCreator(event.creator)">Registrado</span>
             </a>
-            <button data-ng-click="enrollInEvent(event.id)"
-                    data-ng-if="!isCreator(event.creator) && isLogged && !event.isEnrolled"
-                    class="interactionAlt right">Únete
-            </button>
-            <button data-ng-if="!isCreator(event.creator) && !isLogged" class="interaction right" data-toggle="modal"
-                    data-target="#formLogin">Ingresar
-            </button>
             <button data-ng-click="deleteEvent(event.id)" data-ng-if="isCreator(event.creator)" class="right">Eliminar
             </button>
         </li>

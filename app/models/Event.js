@@ -8,6 +8,8 @@ var schemaEvent = new Schema({
         creator:{type: Schema.Types.ObjectId, ref: 'User'},
         beginning: Date,
         end: Date,
+        usermin: Number,
+        prizes: Array,
         description: String
     },
     {collection:"Event"});
