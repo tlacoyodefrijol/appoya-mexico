@@ -1,6 +1,6 @@
 #avatarCreator
 {
-  width: 8em;
+  width: 10em;
   height: 8em;
   position: relative;
   //outline: 1px dotted #f00;
@@ -10,7 +10,7 @@
     height: 8em;
     position: absolute;
     top: 0;
-    left: 2em;
+    left: 3em;
     //outline: 1px dotted #0f0;
 
     .avatarPart
@@ -18,6 +18,9 @@
       background-image: url("/styles/images/avataratlas.png");
       //outline: 1px dotted #00f;
       background-repeat: no-repeat;
+      transition-duration: 0.25s;
+      transition-timing-function: ease-in-out;
+      transition-property: background-position;
     }
     #avatarBody
     {
@@ -26,9 +29,8 @@
       left: 0;
       width: 4em;
       height: 4em;
-      background-position: 0em -8em;
     }
-    #avatarHead
+    #avatarFace
     {
       position: absolute;
       top: 0;
@@ -46,5 +48,65 @@
       height: 4em;
       background-position: 0em -4em;
     }
+  }
+  #avatarControllers
+  {
+    a
+    {
+      width: 2em;
+      height: 2em;
+      position: absolute;
+      display: block;
+      background-color: #ddd;
+      border: 1px solid #ccc;
+      border-top-color:  #eee;
+      border-left-color: #eee;
+      text-decoration: none;
+      span
+      {
+        font-size: 2em;
+        line-height: 0.8em;
+        text-align: center;
+        width: 1em;
+        display: block;
+      }
+    }
+    #bodyNext
+    {
+      right: 0;
+      top: 5em;
+    }
+    #bodyPrev
+    {
+      left: 0;
+      top: 5em;
+    }
+    #hairNext
+    {
+      right: 0;
+      top: 0;
+    }
+    #hairPrev
+    {
+      left: 0;
+      top: 0;
+    }
+    #faceNext
+    {
+      right: 0;
+      top: 2.5em;
+    }
+    #facePrev
+    {
+      left: 0;
+      top: 2.5em;
+    }
+  }
+  #avatarID
+  {
+    position: absolute;
+    display: block;
+    left:0;
+    top: 8em;
   }
 }
