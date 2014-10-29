@@ -2,21 +2,20 @@
     <h2>{{welcomeText}} {{userName}}</h2>
 
     <div id="userInfo" class="clearfix">
-        <div data-ng-controller="ControllerAvatar" id="avatarCreator">
+        <div id="avatarCreator">
             <div id="avatarContainer">
                 <div id="avatarBody" class="avatarPart" style="background-position: {{avatar.body*-4}}em -8em;"></div>
                 <div id="avatarFace" class="avatarPart" style="background-position: {{avatar.face*-4}}em  0em;"></div>
                 <div id="avatarHair" class="avatarPart" style="background-position: {{avatar.hair*-4}}em -4em;"></div>
             </div>
-            <div id="avatarControllers">
-                <a data-ng-click="changePart('body', -1)" id="bodyPrev"><span>&laquo;</span></a>
-                <a data-ng-click="changePart('body',  1)" id="bodyNext"><span>&raquo;</span></a>
-                <a data-ng-click="changePart('face', -1)" id="facePrev"><span>&laquo;</span></a>
-                <a data-ng-click="changePart('face',  1)" id="faceNext"><span>&raquo;</span></a>
-                <a data-ng-click="changePart('hair', -1)" id="hairPrev"><span>&laquo;</span></a>
-                <a data-ng-click="changePart('hair',  1)" id="hairNext"><span>&raquo;</span></a>
+            <div id="avatarControllers" data-ng-if="editMode">
+                <a data-ng-click="avatarService.changePart('body', -1)" id="bodyPrev"><span>&laquo;</span></a>
+                <a data-ng-click="avatarService.changePart('body',  1)" id="bodyNext"><span>&raquo;</span></a>
+                <a data-ng-click="avatarService.changePart('face', -1)" id="facePrev"><span>&laquo;</span></a>
+                <a data-ng-click="avatarService.changePart('face',  1)" id="faceNext"><span>&raquo;</span></a>
+                <a data-ng-click="avatarService.changePart('hair', -1)" id="hairPrev"><span>&laquo;</span></a>
+                <a data-ng-click="avatarService.changePart('hair',  1)" id="hairNext"><span>&raquo;</span></a>
             </div>
-            <span id="avatarID">{{avatar.id}}</span>
         </div>
         <div id="userPersonalInfo">
             <div data-ng-if="!editMode">
@@ -37,7 +36,7 @@
                 <label>Nueva contraseña</label>
                 <input type="password" data-ng-model="user.password"/>
                 <button data-ng-if="isOwner" data-ng-click="updateUser()" class="action right">Guardar</button>
-                <button data-ng-if="isOwner" data-ng-click="toggleEdit()" class="error right">Cancelar</button>
+                <button data-ng-if="isOwner" data-ng-click="cancelChanges()" class="error right">Cancelar</button>
             </form>
         </div>
     </div>

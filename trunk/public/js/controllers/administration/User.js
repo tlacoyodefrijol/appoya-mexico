@@ -1,7 +1,9 @@
-app.controller('ControllerUser', ['$scope', '$http', '$routeParams', '$cookieStore', 'FactoryUsers', 'FactoryEvents',
-    function ($scope, $http, $routeParams, $cookieStore, FactoryUsers, FactoryEvents) {
+app.controller('ControllerUser', ['$scope', '$http', '$routeParams', '$cookieStore', 'FactoryUsers', 'FactoryEvents', 'ServiceAvatar',
+    function ($scope, $http, $routeParams, $cookieStore, FactoryUsers, FactoryEvents, ServiceAvatar) {
 
         $scope.editMode = false;
+        $scope.avatarService = ServiceAvatar;
+
 
         if ($routeParams.id === $cookieStore.get('userId')) {
             $scope.welcomeText = 'Bienvenido';
@@ -12,11 +14,24 @@ app.controller('ControllerUser', ['$scope', '$http', '$routeParams', '$cookieSto
             .success(function (data) {
                 $scope.user = data.data;
                 $scope.userName = data.data.name;
+                console.log(data)
+                var _avatar = {}
+                if ($scope.user.avatar[0] === undefined) {
+                    _avatar = {
+                        body: 0,
+                        face: 0,
+                        hair: 0,
+                        id: 'a000'
+                    }
+                } else {
+                    _avatar = $scope.user.avatar[0];
+                }
+                $scope.avatarService.setAvatar(_avatar);
+                $scope.avatar = ServiceAvatar.getAvatar();
             });
         FactoryUsers.enrollmentOne($routeParams.id)
-            .success(function(data){
+            .success(function (data) {
                 $scope.events = data.data;
-                console.log($scope.events)
             });
 
         $scope.toggleEdit = function () {
@@ -26,19 +41,23 @@ app.controller('ControllerUser', ['$scope', '$http', '$routeParams', '$cookieSto
                 $scope.editMode = true;
             }
         };
+        $scope.cancelChanges = function () {
+            $scope.avatarService.cancelChanges();
+            $scope.toggleEdit();
+        };
         $scope.updateUser = function () {
-            console.log('aqui ', $scope.user)
             var obj = {
                 id: $scope.user.id,
                 name: $scope.user.name,
                 lastname: $scope.user.lastname,
+                avatar: [$scope.avatarService.getAvatar()]
             };
             if (typeof $scope.user.password !== 'undefined' && $scope.user.password !== '') {
                 obj.secretword = $scope.user.password
             }
             FactoryUsers.updateOne(obj)
                 .success(function (data) {
-                    $scope.userName =  $scope.user.name;
+                    $scope.userName = $scope.user.name;
                     $scope.toggleEdit();
                 });
         };
