@@ -41,6 +41,15 @@ app.factory('FactoryUsers', ['$http',
             });
         };
 
+        _users.enrollmentOne = function(_id)
+        {
+            return $http({
+                method: 'post',
+                url: _urlBaseOne + 'enrollment',
+                data: {id: _id}
+            });
+        };
+
         _users.get = function (obj) {
             return $http({
                 method: 'post',

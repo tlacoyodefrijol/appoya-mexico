@@ -47,12 +47,17 @@
             </fieldset>
         </form>
         {{messageSearch}}
+        <ul id="menuEnrolled">
+            <li data-ng-repeat="user in availableUsers"><a href="/usuario/{{user.id}}">{{user.name}} {{user.lastname}}</a>
+                <button data-ng-click="enrollUser(user)">Enrolar</button>
+            </li>
+        </ul>
     </div>
     <div id="eventInfo" data-ng-if="!isOwner">
         <h3 class="flag">Descripción</h3>
 
         <p>{{event.description}}</p>
-        <h3>Premios del evento</h3>
+        <h3 class="flag">Premios del evento</h3>
         <ul class="grid eventPrizes">
             <li data-ng-repeat="sPrize in prizeSelected" class="prize">
                 <span class="icon {{sPrize.id}}"></span>{{sPrize.name}}
@@ -64,13 +69,8 @@
         <button data-ng-if="enrollment.success" data-ng-click="withdrawUser('currentUser')" class="error">Abandonar
         </button>
     </div>
-    <ul id="menuEnrolled">
-        <li data-ng-repeat="user in availableUsers"><a href="/usuario/{{user.id}}">{{user.name}} {{user.lastname}}</a>
-            <button data-ng-click="enrollUser(user)">Enrolar</button>
-        </li>
-    </ul>
-
-    <ul id="tabUsers" class="nav nav-tabs" role="tablist">
+    <h3 class="flag">Inscritos</h3>
+        <ul id="tabUsers" class="nav nav-tabs" role="tablist">
         <li class="active">
             <a href="#voluntarios" role="tab" data-toggle="tab">Voluntarios</a>
         </li>

@@ -1,38 +1,62 @@
-<div id="contentContainer" data-ng-controller="ControllerUser">
+<div id="contentContainer" data-ng-controller="ControllerUser" class="clearfix">
     <h2>{{welcomeText}} {{userName}}</h2>
-    <div data-ng-if="!editMode">
-        <div>
-            <span>Nombre de usuario:</span> {{user.username}}
+
+    <div id="userInfo" class="clearfix">
+        <div data-ng-controller="ControllerAvatar" id="avatarCreator">
+            <div id="avatarContainer">
+                <div id="avatarBody" class="avatarPart" style="background-position: {{avatar.body*-4}}em -8em;"></div>
+                <div id="avatarFace" class="avatarPart" style="background-position: {{avatar.face*-4}}em  0em;"></div>
+                <div id="avatarHair" class="avatarPart" style="background-position: {{avatar.hair*-4}}em -4em;"></div>
+            </div>
+            <div id="avatarControllers">
+                <a data-ng-click="changePart('body', -1)" id="bodyPrev"><span>&laquo;</span></a>
+                <a data-ng-click="changePart('body',  1)" id="bodyNext"><span>&raquo;</span></a>
+                <a data-ng-click="changePart('face', -1)" id="facePrev"><span>&laquo;</span></a>
+                <a data-ng-click="changePart('face',  1)" id="faceNext"><span>&raquo;</span></a>
+                <a data-ng-click="changePart('hair', -1)" id="hairPrev"><span>&laquo;</span></a>
+                <a data-ng-click="changePart('hair',  1)" id="hairNext"><span>&raquo;</span></a>
+            </div>
+            <span id="avatarID">{{avatar.id}}</span>
         </div>
-        <div>
-            <span>Nombre:</span> {{user.name}} {{user.lastname}}
+        <div id="userPersonalInfo">
+            <div data-ng-if="!editMode">
+                <div>
+                    <span>Nombre de usuario:</span> {{user.username}}
+                </div>
+                <div>
+                    <span>Nombre:</span> {{user.name}} {{user.lastname}}
+                </div>
+                <button data-ng-if="isOwner" data-ng-click="toggleEdit()" class="interaction">Editar información
+                </button>
+            </div>
+            <form data-ng-if="editMode">
+                <label>Nombre</label>
+                <input type="text" data-ng-model="user.name" required/>
+                <label>Apellido</label>
+                <input type="text" data-ng-model="user.lastname" required/>
+                <label>Nueva contraseña</label>
+                <input type="password" data-ng-model="user.password"/>
+                <button data-ng-if="isOwner" data-ng-click="updateUser()" class="action right">Guardar</button>
+                <button data-ng-if="isOwner" data-ng-click="toggleEdit()" class="error right">Cancelar</button>
+            </form>
         </div>
-        <button data-ng-if="isOwner" data-ng-click="toggleEdit()" class="interaction">Editar</button>
     </div>
-    <form data-ng-if="editMode">
-        <label>Nombre</label>
-        <input type="text" data-ng-model="user.name" required/>
-        <label>Apellido</label>
-        <input type="text" data-ng-model="user.lastname" required/>
-        <label>Nueva contraseña</label>
-        <input type="password" data-ng-model="user.password" />
-        <button data-ng-if="isOwner" data-ng-click="updateUser()" class="action right">Guardar</button>
-        <button data-ng-if="isOwner" data-ng-click="toggleEdit()" class="error right">Cancelar</button>
-    </form>
-    <div data-ng-controller="ControllerAvatar" id="avatarCreator">
-        <div id="avatarContainer">
-            <div id="avatarBody" class="avatarPart" style="background-position: {{avatar.body*-4}}em -8em;"></div>
-            <div id="avatarFace" class="avatarPart" style="background-position: {{avatar.face*-4}}em  0em;"></div>
-            <div id="avatarHair" class="avatarPart" style="background-position: {{avatar.hair*-4}}em -4em;"></div>
-        </div>
-        <div id="avatarControllers">
-            <a data-ng-click="changePart('body', -1)" id="bodyPrev"><span>&laquo;</span></a>
-            <a data-ng-click="changePart('body',  1)" id="bodyNext"><span>&raquo;</span></a>
-            <a data-ng-click="changePart('face', -1)" id="facePrev"><span>&laquo;</span></a>
-            <a data-ng-click="changePart('face',  1)" id="faceNext"><span>&raquo;</span></a>
-            <a data-ng-click="changePart('hair', -1)" id="hairPrev"><span>&laquo;</span></a>
-            <a data-ng-click="changePart('hair',  1)" id="hairNext"><span>&raquo;</span></a>
-        </div>
-        <span id="avatarID">{{avatar.id}}</span>
+    <div id="userNextEvents" class="clearBoth">
+        <h3 class="flag">Próximos eventos inscrito</h3>
+        <ul id="gridEvents" class="grid">
+            <li data-ng-repeat="event in events" class="cols-4">
+                <a href="/evento/{{event.event.id}}">
+                    <img src="/styles/images/reforestaThumb.png" alt="{{event.event.name}}"/>
+
+                    <div class="info">
+                        <div class="flag"><span class="big">{{event.event.usermin}}</span> voluntarios necesarios</div>
+                        <h3 class="title">{{event.event.name}}</h3>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div id="userAchievements">
+        <h3 class="flag">Logros</h3>
     </div>
 </div>

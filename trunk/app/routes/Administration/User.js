@@ -160,6 +160,41 @@ var api =
                     });
                 }
             });
+        router.route('/user/enrollment')
+            .post(function(req,res){
+                var ro = new ResultObject();
+                var err = null;
+                function checkInput(cb) {
+                    if (!req.body.id) {
+                        ro.success = false;
+                        ro.info = 'User ID is a required field';
+                        ro.code = ro.BAD_REQUEST;
+                        err = new Error();
+                    }
+                    cb(err, ro);
+                }
+                function findEnrollment(ro, cb){
+                    var params = {};
+                    params.user = req.body.id;
+                    var query = Enrollment
+                        .find(params)
+                        .populate('event');
+                    query.exec(cb)
+                }
+                function cb(err, result) {
+                    if (!err) {
+                        ro.success = true;
+                        ro.code = ro.ALL_OK;
+                        ro.data = result;
+                    }
+                    else {
+                        ro.success = false;
+                        ro.info = err.message;
+                    }
+                    res.json(ro);
+                }
+                async.waterfall([checkInput, findEnrollment], cb);
+            });
         /*********************************************************************
          *
          *********************************************************************/

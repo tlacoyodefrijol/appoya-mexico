@@ -1,5 +1,5 @@
-app.controller('ControllerUser', ['$scope', '$http', '$routeParams', '$cookieStore', 'FactoryUsers',
-    function ($scope, $http, $routeParams, $cookieStore, FactoryUsers) {
+app.controller('ControllerUser', ['$scope', '$http', '$routeParams', '$cookieStore', 'FactoryUsers', 'FactoryEvents',
+    function ($scope, $http, $routeParams, $cookieStore, FactoryUsers, FactoryEvents) {
 
         $scope.editMode = false;
 
@@ -13,6 +13,12 @@ app.controller('ControllerUser', ['$scope', '$http', '$routeParams', '$cookieSto
                 $scope.user = data.data;
                 $scope.userName = data.data.name;
             });
+        FactoryUsers.enrollmentOne($routeParams.id)
+            .success(function(data){
+                $scope.events = data.data;
+                console.log($scope.events)
+            });
+
         $scope.toggleEdit = function () {
             if ($scope.editMode) {
                 $scope.editMode = false;

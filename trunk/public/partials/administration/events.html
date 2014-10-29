@@ -28,7 +28,8 @@
                 </div>
                 <span data-ng-if="!isCreator(event.creator) && !event.isEnrolled"
                       class="label interactionAlt right">Únete</span>
-            <span class="label action right" data-ng-if="event.isEnrolled && !isCreator(event.creator)">Registrado</span>
+                <span class="label action right"
+                      data-ng-if="event.isEnrolled && !isCreator(event.creator)">Registrado</span>
             </a>
             <button data-ng-click="deleteEvent(event.id)" data-ng-if="isCreator(event.creator)" class="right">Eliminar
             </button>
