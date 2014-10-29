@@ -38,6 +38,22 @@ app.controller('ControllerEvent', ['$scope', '$routeParams', 'FactoryEvents', 'F
                 $scope.eventTitle = $scope.event.name;
                 if ($cookieStore.get('profile') === 'master' || $scope.event.creator === $cookieStore.get('userId')) {
                     $scope.isOwner = true;
+                    var _user = {
+                        profile: $scope.profileType.option.id,
+                        status: 'all',
+                        fields: {name: 1, lastname: 1}
+                    };
+                    FactoryUsers.get(_user)
+                        .success(function (data) {
+                            if (data.data.length === 0) {
+                                $scope.availableUsers = [];
+                                $scope.messageSearch = 'No se encontraron resultados';
+                            }
+                            else {
+                                $scope.availableUsers = data.data;
+                                $scope.messageSearch = '';
+                            }
+                        });
                 } else {
                     $scope.isOwner = false;
                 }
@@ -143,6 +159,7 @@ app.controller('ControllerEvent', ['$scope', '$routeParams', 'FactoryEvents', 'F
             $scope.availableUsers = [];
             $scope.messageSearch = '';
             $scope.fieldUser.text = '';
+            searchUser();
         };
         $scope.updateLists = function () {
             FactoryEvents.enrollments({event: eventId, role: 'voluntario'})
@@ -156,17 +173,14 @@ app.controller('ControllerEvent', ['$scope', '$routeParams', 'FactoryEvents', 'F
         };
 
         function searchUser(name) {
-            var _name = '';
+            var _user = {};
             if (typeof name !== 'undefined') {
-                _name = name;
+                _user.search = name;
             }
-            var _user = {
-                profile: $scope.profileType.option.id,
-                status: 'all',
-                search: _name,
-                fields: {name: 1, lastname: 1}
-            };
-            console.log(_user)
+            _user.profile = $scope.profileType.option.id;
+            _user.status = 'all';
+            _user.fields = {name: 1, lastname: 1};
+
             FactoryUsers.get(_user)
                 .success(function (data) {
                     if (data.data.length === 0) {
@@ -177,7 +191,7 @@ app.controller('ControllerEvent', ['$scope', '$routeParams', 'FactoryEvents', 'F
                         $scope.availableUsers = data.data;
                         $scope.messageSearch = '';
                     }
-                })
+                });
             if (typeof name !== 'undefined') {
                 _name = name;
 
