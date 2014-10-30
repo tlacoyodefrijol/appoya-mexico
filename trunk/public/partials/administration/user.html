@@ -3,12 +3,12 @@
 
     <div id="userInfo" class="clearfix">
         <div id="avatarCreator">
-            <div id="avatarContainer">
+            <div id="avatarContainer" data-ng-if="user.profile[0] === 'voluntario'">
                 <div id="avatarBody" class="avatarPart" style="background-position: {{avatar.body*-4}}em -8em;"></div>
                 <div id="avatarFace" class="avatarPart" style="background-position: {{avatar.face*-4}}em  0em;"></div>
                 <div id="avatarHair" class="avatarPart" style="background-position: {{avatar.hair*-4}}em -4em;"></div>
             </div>
-            <div id="avatarControllers" data-ng-if="editMode">
+            <div id="avatarControllers" data-ng-if="editMode && user.profile[0] === 'voluntario'">
                 <a data-ng-click="avatarService.changePart('body', -1)" id="bodyPrev"><span>&laquo;</span></a>
                 <a data-ng-click="avatarService.changePart('body',  1)" id="bodyNext"><span>&raquo;</span></a>
                 <a data-ng-click="avatarService.changePart('face', -1)" id="facePrev"><span>&laquo;</span></a>
@@ -16,6 +16,7 @@
                 <a data-ng-click="avatarService.changePart('hair', -1)" id="hairPrev"><span>&laquo;</span></a>
                 <a data-ng-click="avatarService.changePart('hair',  1)" id="hairNext"><span>&raquo;</span></a>
             </div>
+            <img src="/styles/images/default_icon.png" data-ng-if="user.profile[0] !== 'voluntario'"/>
         </div>
         <div id="userPersonalInfo">
             <div data-ng-if="!editMode">
@@ -40,7 +41,7 @@
             </form>
         </div>
     </div>
-    <div id="userNextEvents" class="clearBoth">
+    <div id="userNextEvents" class="clearBoth" data-ng-if="user.profile[0] === 'voluntario'">
         <h3 class="flag">Próximos eventos inscrito</h3>
         <ul id="gridEvents" class="grid">
             <li data-ng-repeat="event in events" class="cols-4">
@@ -50,12 +51,23 @@
                     <div class="info">
                         <div class="flag"><span class="big">{{event.event.usermin}}</span> voluntarios necesarios</div>
                         <h3 class="title">{{event.event.name}}</h3>
+                        <span class="date">Comienza: {{event.event.beginning | date:'d/M/yyyy'}}</span>
                     </div>
                 </a>
             </li>
         </ul>
     </div>
-    <div id="userAchievements">
+    <div id="userAchievements" data-ng-if="user.profile[0] === 'voluntario'">
         <h3 class="flag">Logros</h3>
+        <ul class="grid">
+            <li class="cols-10">
+                <img src="/styles/images/default_icon.png"/>
+                5 veces participando
+            </li>
+            <li class="cols-10">
+                <img src="/styles/images/default_icon.png"/>
+                Mejor voluntario
+            </li>
+        </ul>
     </div>
 </div>

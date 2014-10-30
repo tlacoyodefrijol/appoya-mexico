@@ -472,7 +472,7 @@ var api = {
                         .select("_id date role user")
                         .limit(limit)
                         .skip(skip)
-                        .populate({path: 'user', select: 'name lastname username profile serial'});
+                        .populate({path: 'user', select: 'name lastname username profile serial avatar'});
                     query.exec(cb);
                 }
 

@@ -23,7 +23,7 @@ app.service('ServiceAvatar', function () {
         originalAvatar.body = obj.body;
         originalAvatar.face = obj.face;
         originalAvatar.hair = obj.hair;
-        originalAvatar.id = obj.id;
+        originalAvatar._id = obj.id;
         this.updateID();
     };
 
@@ -31,10 +31,10 @@ app.service('ServiceAvatar', function () {
         avatar.body = originalAvatar.body;
         avatar.face = originalAvatar.face;
         avatar.hair = originalAvatar.hair;
-        avatar.id = originalAvatar.id;
+        avatar._id = originalAvatar.id;
     };
 
     this.updateID = function () {
-        avatar.id = "a" + avatar.body + avatar.face + avatar.hair;
+        avatar._id = "a" + avatar.body + avatar.face + avatar.hair;
     };
 });

@@ -9,6 +9,7 @@ var schemaEvent = new Schema({
         beginning: Date,
         end: Date,
         usermin: Number,
+        roles: Array,
         prizes: Array,
         description: String
     },

@@ -32,9 +32,9 @@ var schemaUser = new Schema({
             body: Number,
             face: Number,
             hair: Number,
-            id: String
+            _id: String
         }],
-        children: [{type: Schema.Types.ObjectId, ref: 'User'}],
+        children: [{type: Schema.Types.ObjectId, ref: 'User'}]
     },
     {collection: "User"});
 

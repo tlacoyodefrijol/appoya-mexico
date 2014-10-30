@@ -2,6 +2,69 @@
   margin-bottom: 1em;
 }
 
+#eventMain {
+  position: relative;
+  a {
+    display: block;
+    position: relative;
+  }
+  button{
+    position: absolute;
+    top: .5em;
+    right: .5em;
+  }
+  .info {
+    .boxSizing;
+    padding: 1rem;
+    position: absolute;
+    top: 0;
+    text-decoration: none;
+    z-index: 1;
+    .flag {
+      margin-left: -1rem;
+    }
+    .date {
+      color: #FFF;
+    }
+  }
+  .title {
+    .boxSizing;
+    color: #FFF;
+    font-size: 2.5em;
+    margin-bottom: 1rem;
+    padding: 0;
+    .textShadow(@x:.125rem,@y:0,@blur: .35rem);
+  }
+  .label {
+    margin-top: -.5rem;
+    padding: .5em;
+    position: absolute;
+    bottom: .5em;
+    right: .5em;
+    font-size: 2em;
+    .dropShadow(@x: .125em, @y: .125em);
+    .transform(rotate(-10deg));
+    &.action {
+      background-color: @colorAction;
+      color: #000;
+    }
+    &.interaction {
+      background-color: @colorInteraction;
+      color: #FFF;
+    }
+    &.interactionAlt {
+      background-color: @colorInteractionAlt;
+      color: #000;
+    }
+  }
+}
+
+#canvasAnimation {
+  width: 100%;
+  height: auto;
+  margin-bottom: 1em;
+}
+
 #eventInfo {
   p {
     .boxSizing;
@@ -34,20 +97,21 @@
     }
   }
 }
-.eventPrizes{
+
+.eventPrizes {
   margin: 1em 0;
-  li{
+  li {
     height: 6em;
     width: 6em;
   }
-  .prize{
+  .prize {
     background-image: url('/styles/images/premios_fondo.png');
     background-repeat: no-repeat;
     width: 5em;
     height: 5em;
     padding-top: 5em;
     text-align: center;
-    .icon{
+    .icon {
       background-image: url('/styles/images/premios_evento.png');
       background-repeat: no-repeat;
       background-position: top left;
@@ -59,31 +123,31 @@
       margin-bottom: 1em;
       width: 3em;
       height: 3em;
-      &.prize0{
+      &.prize0 {
         background-position: 0 0;
       }
-      &.prize1{
+      &.prize1 {
         background-position: -3em 0;
       }
-      &.prize2{
+      &.prize2 {
         background-position: -6em 0;
       }
-      &.prize3{
+      &.prize3 {
         background-position: -9em 0;
       }
-      &.prize4{
+      &.prize4 {
         background-position: -12em 0;
       }
-      &.prize5{
+      &.prize5 {
         background-position: -15em 0;
       }
-      &.prize6{
+      &.prize6 {
         background-position: -18em 0;
       }
-      &.prize7{
+      &.prize7 {
         background-position: -21em 0;
       }
-      &.prize8{
+      &.prize8 {
         background-position: -24em 0;
       }
     }

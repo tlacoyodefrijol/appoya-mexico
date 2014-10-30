@@ -1,7 +1,7 @@
 <div id="contentContainer" data-ng-controller="ControllerEvent" data-ng-init="updateLists()">
     <h2>{{eventTitle}}</h2>
 
-    <img id="banner" src="/styles/images/fondo-bosque.png" alt="{{eventTitle}}"/>
+    <canvas id="canvasAnimation" width="960" height="240" style="background-color:#FFFFFF"></canvas>
 
     <div data-ng-if="isOwner">
         <h3>Editar datos del evento</h3>
@@ -15,18 +15,35 @@
                 <input type="text" name="eventDateBegin" data-ng-model="event.beginning" required/>
                 <label>Fecha de fin</label>
                 <input type="text" name="eventDateEnd" data-ng-model="event.end" required/>
-                <label>Voluntarios necesarios</label>
-                <input type="number" name="eventUserNeeded.total" data-ng-model="event.usermin" required/>
-                <a href="javascript:void(0)" data-ng-if="event.usermin>100" class="button interaction">Solicitar premio
-                    personalizado</a>
                 <label class="clearBoth">Descripción</label>
                 <textarea data-ng-model="event.description"></textarea>
+            </fieldset>
+            <fieldset>
+                <h4>Roles necesarios</h4>
+                <label>Cantidad</label>
+                <input type="number" data-ng-model="role.quantity" data-ng-init="role.quantity = 0"/>
+                <label>Tipo</label>
+                <select data-ng-model="role.type"
+                        data-ng-options="role.label for role in roleListType"
+                        data-ng-init="role.type = roleListType[0]">
+                </select>
+                <button data-ng-click="addRole()" class="interaction">Agregar role</button>
+                <a href="javascript:void(0)" data-ng-if="event.usermin>=100" class="button interactionAlt">Solicitar
+                    premio personalizado</a>
+                <ul class="filterList">
+                    <li data-ng-repeat="role in roleList">{{role.quantity}} {{role.type.label}}
+                        <button class="error" data-ng-click="removeRole($index)">Eliminar</button>
+                    </li>
+                </ul>
             </fieldset>
             <fieldset>
                 <h4>Premios disponibles</h4>
                 <ul class="grid eventPrizes">
                     <li data-ng-repeat="prize in prizeAvailable">
-                        <label class="prize"><span class="icon {{prize.id}}"></span><input type="checkbox" data-ng-change="setPrizes(prize, isChecked)" data-ng-model="isChecked" ng-checked = "prize.isChecked" />{{prize.name}}</label>
+                        <label class="prize"><span class="icon {{prize.id}}"></span><input type="checkbox"
+                                                                                           data-ng-change="setPrizes(prize, isChecked)"
+                                                                                           data-ng-model="isChecked"
+                                                                                           ng-checked="prize.isChecked"/>{{prize.name}}</label>
                     </li>
                 </ul>
             </fieldset>
@@ -48,7 +65,8 @@
         </form>
         {{messageSearch}}
         <ul id="menuEnrolled">
-            <li data-ng-repeat="user in availableUsers"><a href="/usuario/{{user.id}}">{{user.name}} {{user.lastname}}</a>
+            <li data-ng-repeat="user in availableUsers"><a href="/usuario/{{user.id}}">{{user.name}}
+                {{user.lastname}}</a>
                 <button data-ng-click="enrollUser(user)">Enrolar</button>
             </li>
         </ul>
@@ -57,22 +75,32 @@
         <h3 class="flag">Descripción</h3>
 
         <p>{{event.description}}</p>
+        <button data-ng-if="!enrollment.success && isLogged" data-ng-click="enrollInEvent()" class="interactionAlt">
+            Únete
+        </button>
+        <button data-ng-if="enrollment.success" data-ng-click="withdrawUser('currentUser')" class="error">Abandonar
+        </button>
+        <hr/>
         <h3 class="flag">Premios del evento</h3>
         <ul class="grid eventPrizes">
             <li data-ng-repeat="sPrize in prizeSelected" class="prize">
                 <span class="icon {{sPrize.id}}"></span>{{sPrize.name}}
             </li>
         </ul>
-        <button data-ng-if="!enrollment.success && isLogged" data-ng-click="enrollInEvent()" class="interactionAlt">
-            Únete
-        </button>
-        <button data-ng-if="enrollment.success" data-ng-click="withdrawUser('currentUser')" class="error">Abandonar
-        </button>
+        <hr/>
+        <h3 class="flag">Roles necesarios</h3>
+        <ul class="filterList">
+            <li data-ng-repeat="role in roleList">{{role.quantity}} {{role.type.label}}</li>
+        </ul>
     </div>
+    <hr/>
     <h3 class="flag">Inscritos</h3>
-        <ul id="tabUsers" class="nav nav-tabs" role="tablist">
+    <ul id="tabUsers" class="nav nav-tabs" role="tablist">
         <li class="active">
             <a href="#voluntarios" role="tab" data-toggle="tab">Voluntarios</a>
+        </li>
+        <li>
+            <a href="#grupos" role="tab" data-toggle="tab">Grupos</a>
         </li>
         <li>
             <a href="#aliados" role="tab" data-toggle="tab">Aliados</a>
@@ -83,35 +111,81 @@
             <ul class="grid">
                 <li data-ng-repeat="volunteer in volunteerList">
                     <a href="/usuario/{{volunteer.user.id}}">
-                        <div id="avatarCreator">
-                            <div id="avatarContainer">
-                                <div id="avatarBody" class="avatarPart"></div>
-                                <div id="avatarHead" class="avatarPart"></div>
-                                <div id="avatarHair" class="avatarPart"></div>
-                            </div>
-                        </div>
+                        <img src="/styles/images/{{volunteer.user.avatar[0].id}}.png"/>
                         {{volunteer.user.username}}
                     </a>
                     <button data-ng-click="withdrawUser(volunteer.id)" data-ng-if="isOwner">Retirar</button>
                 </li>
             </ul>
         </div>
+        <div class="tab-pane" id="grupos">
+            <ul class="grid">
+                <li class="cols-10">
+                    <a href="javascript:void(0);">
+                        <img src="/styles/images/default_icon.png"/>
+                        Gran Empresa
+                    </a>
+                    <button data-ng-if="isOwner">Retirar</button>
+                </li>
+                <li class="cols-10">
+                    <a href="javascript:void(0);">
+                        <img src="/styles/images/default_icon.png"/>
+                        Grupo Voluntarios unidos
+                    </a>
+                    <button data-ng-if="isOwner">Retirar</button>
+                </li>
+            </ul>
+        </div>
         <div class="tab-pane" id="aliados">
-            <ul class="filterList">
-                <li data-ng-repeat="ally in allyList"><a href="/usuario/{{ally.user.id}}">{{ally.user.name}}
-                    {{ally.user.lastname}}</a>
+            <ul class="grid">
+                <li data-ng-repeat="ally in allyList" class="cols-10">
+                    <a href="/usuario/{{ally.user.id}}">
+                        <img src="/styles/images/default_icon.png"/>
+                        {{ally.user.name}} {{ally.user.lastname}}
+                    </a>
                     <button data-ng-click="withdrawUser(ally.id)" data-ng-if="isOwner">Retirar</button>
                 </li>
             </ul>
         </div>
     </div>
 </div>
+<script src="/libs/easeljs-0.7.1.min.js"></script>
+<script src="/libs/tweenjs-0.5.1.min.js"></script>
+<script src="/libs/movieclip-0.7.1.min.js"></script>
+<script src="/libs/preloadjs-0.4.1.min.js"></script>
+<script src="/js/animacion.js"></script>
 <script type="text/javascript">
+    $(function(){
+        var canvas, stage, exportRoot;
+        function init() {
+            canvas = document.getElementById('canvasAnimation');
+            var images = images || {};
 
-    $(function () {
-        $('#tabUsers a').click(function (e) {
-            e.preventDefault()
-            $(this).tab('show')
-        })
-    })
+            var loader = new createjs.LoadQueue(false);
+            loader.addEventListener("fileload", handleFileLoad);
+            loader.addEventListener("complete", handleComplete);
+            loader.loadManifest(lib.properties.manifest);
+        }
+
+        function handleFileLoad(evt) {
+            if (evt.item.type == "image") {
+                images[evt.item.id] = evt.result;
+            }
+        }
+
+        function handleComplete() {
+            exportRoot = new lib.Applícate_Animación();
+
+            stage = new createjs.Stage(canvas);
+            stage.addChild(exportRoot);
+            stage.update();
+
+            createjs.Ticker.setFPS(lib.properties.fps);
+            createjs.Ticker.addEventListener("tick", stage);
+        }
+        $(document).ready(function(){
+            init();
+        });
+    });
+
 </script>

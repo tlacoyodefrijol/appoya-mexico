@@ -21,7 +21,7 @@ app.controller('ControllerUser', ['$scope', '$http', '$routeParams', '$cookieSto
                         body: 0,
                         face: 0,
                         hair: 0,
-                        id: 'a000'
+                        _id: 'a000'
                     }
                 } else {
                     _avatar = $scope.user.avatar[0];
@@ -52,11 +52,20 @@ app.controller('ControllerUser', ['$scope', '$http', '$routeParams', '$cookieSto
                 lastname: $scope.user.lastname,
                 avatar: [$scope.avatarService.getAvatar()]
             };
+            if($scope.user.profile[0] !== 'voluntario'){
+                obj.avatar = {
+                    body: 0,
+                    face: 0,
+                    hair: 0,
+                    _id: 'default_icon'
+                }
+            }
             if (typeof $scope.user.password !== 'undefined' && $scope.user.password !== '') {
                 obj.secretword = $scope.user.password
             }
             FactoryUsers.updateOne(obj)
                 .success(function (data) {
+                    $scope.avatarService.setAvatar($scope.avatarService.getAvatar());
                     $scope.userName = $scope.user.name;
                     $scope.toggleEdit();
                 });
