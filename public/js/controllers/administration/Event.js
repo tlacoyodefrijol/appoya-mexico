@@ -8,6 +8,13 @@ app.controller('ControllerEvent', ['$scope', '$routeParams', 'FactoryEvents', 'F
         $scope.profileType = {};
         $scope.prizeAvailable = [];
         $scope.prizeSelected = {};
+        $scope.role = {};
+        $scope.roleListType = [
+            {label: 'Voluntarios', id: 'voluntario'},
+            {label: 'Maestros', id: 'maestro'},
+            {label: 'Pintores', id: 'pintor'},
+            {label: 'Cocineros', id: 'cocinero'}
+        ];
 
         $scope.prizeAvailable = [
             {id: 'prize0', name: 'Camisa gris'},
@@ -31,6 +38,7 @@ app.controller('ControllerEvent', ['$scope', '$routeParams', 'FactoryEvents', 'F
         FactoryEvents.getOne(eventId)
             .success(function (data) {
                 $scope.event = data.data;
+                $scope.roleList = $scope.event.roles;
                 $scope.prizeSelected = $scope.event.prizes;
                 for (var i = 0; i < $scope.prizeSelected.length; i++) {
                     setInitialSelection($scope.prizeSelected[i]);
@@ -130,7 +138,8 @@ app.controller('ControllerEvent', ['$scope', '$routeParams', 'FactoryEvents', 'F
                     usermin: $scope.event.usermin,
                     prizes: _prizes,
                     creator: $scope.event.creator,
-                    description: $scope.event.description
+                    description: $scope.event.description,
+                    roles: $scope.roleList
                 };
                 FactoryEvents.updateOne(_grp)
                     .success(function (data) {
@@ -170,6 +179,18 @@ app.controller('ControllerEvent', ['$scope', '$routeParams', 'FactoryEvents', 'F
                 .success(function (data) {
                     $scope.allyList = data;
                 });
+        };
+
+        $scope.addRole = function () {
+            $scope.event.usermin += $scope.role.quantity;
+            $scope.roleList.push({
+                quantity: $scope.role.quantity,
+                type: $scope.role.type
+            });
+        };
+        $scope.removeRole = function(_index){
+            $scope.event.usermin -= $scope.roleList[_index].quantity;
+            $scope.roleList.splice(_index, 1);
         };
 
         function searchUser(name) {

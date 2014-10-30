@@ -1,7 +1,11 @@
 .filterList {
   li {
+    .boxSizing;
+    display: block;
+    padding: .5em;
+    width: 100%;
     &:nth-child(odd) {
-      background-color: lighten(@colorMain, 60);
+      background-color: lighten(@colorMain, 45);
     }
     a {
       .boxSizing;
@@ -29,6 +33,13 @@
         margin-right: 0;
       }
     }
+    &.cols-10{
+      width: 10%;
+      &:nth-child(0n+10)
+      {
+        margin-right: 0;
+      }
+    }
     .info{
       .boxSizing;
       padding: 1rem;
@@ -38,6 +49,9 @@
       z-index: 1;
       .flag {
         margin-left: -1rem;
+      }
+      .date{
+        color: #FFF;
       }
     }
     .title{

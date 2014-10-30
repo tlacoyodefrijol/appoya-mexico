@@ -1,6 +1,22 @@
 <div id="contentContainer" data-ng-controller="ControllerEvents" data-ng-init="init()">
     <h2>Eventos</h2>
 
+    <div id="eventMain">
+        <a href="/evento/{{events[0].id}}">
+            <canvas id="canvasAnimation" width="960" height="240" style="background-color:#FFFFFF"></canvas>
+            <div class="info">
+                <div class="flag"><span class="big">{{events[0].usermin}}</span> voluntarios necesarios</div>
+                <h3 class="title">{{events[0].name}}</h3>
+            </div>
+                <span data-ng-if="!isCreator(events[0].creator) && !event.isEnrolled"
+                      class="label interactionAlt right">Únete</span>
+                <span class="label action right"
+                      data-ng-if="event.isEnrolled && !isCreator(event.creator)">Registrado</span>
+
+        </a>
+        <button data-ng-click="deleteEvent(events[0].id)" data-ng-if="isCreator(events[0].creator)" class="right">Eliminar</button>
+    </div>
+
     <div data-ng-if="enableAddEvent">
         <h3>Agregar evento</h3>
 
@@ -31,8 +47,47 @@
                 <span class="label action right"
                       data-ng-if="event.isEnrolled && !isCreator(event.creator)">Registrado</span>
             </a>
-            <button data-ng-click="deleteEvent(event.id)" data-ng-if="isCreator(event.creator)" class="right">Eliminar
-            </button>
+            <button data-ng-click="deleteEvent(event.id)" data-ng-if="isCreator(event.creator)" class="right">Eliminar</button>
         </li>
     </ul>
 </div>
+<script src="/libs/easeljs-0.7.1.min.js"></script>
+<script src="/libs/tweenjs-0.5.1.min.js"></script>
+<script src="/libs/movieclip-0.7.1.min.js"></script>
+<script src="/libs/preloadjs-0.4.1.min.js"></script>
+<script src="/js/animacion.js"></script>
+<script type="text/javascript">
+    $(function(){
+        var canvas, stage, exportRoot;
+        function init() {
+            canvas = document.getElementById('canvasAnimation');
+            var images = images || {};
+
+            var loader = new createjs.LoadQueue(false);
+            loader.addEventListener("fileload", handleFileLoad);
+            loader.addEventListener("complete", handleComplete);
+            loader.loadManifest(lib.properties.manifest);
+        }
+
+        function handleFileLoad(evt) {
+            if (evt.item.type == "image") {
+                images[evt.item.id] = evt.result;
+            }
+        }
+
+        function handleComplete() {
+            exportRoot = new lib.Applícate_Animación();
+
+            stage = new createjs.Stage(canvas);
+            stage.addChild(exportRoot);
+            stage.update();
+
+            createjs.Ticker.setFPS(lib.properties.fps);
+            createjs.Ticker.addEventListener("tick", stage);
+        }
+        $(document).ready(function(){
+            init();
+        });
+    });
+
+</script>

@@ -50,6 +50,9 @@ app.config([
                 templateUrl: '/partials/administration/user.html',
                 controller: 'ControllerUser'
             })
+            .when(app.baseURL+'informacion', {
+                templateUrl: '/partials/informacion.html'
+            })
             .otherwise({
                 controller: function () {
                     window.location.replace('/404.html');
