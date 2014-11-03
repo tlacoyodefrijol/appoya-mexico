@@ -94,9 +94,9 @@
     <div id="enrollTab" class="tab-content">
         <div class="tab-pane active" id="voluntarios">
             <ul class="grid">
-                <li data-ng-repeat="volunteer in volunteerList">
+                <li data-ng-repeat="volunteer in volunteerList" class="cols-20">
                     <a href="/usuario/{{volunteer.user.id}}">
-                        <img src="/styles/images/{{volunteer.user.avatar[0].id}}.png"/>
+                        <img src="/styles/images/avatar/{{volunteer.user.avatar[0].id}}.png"/>
                         {{volunteer.user.username}}
                     </a>
                     <button data-ng-click="withdrawUser(volunteer.id)" data-ng-if="isOwner">Retirar</button>
@@ -105,14 +105,14 @@
         </div>
         <div class="tab-pane" id="grupos">
             <ul class="grid">
-                <li class="cols-10">
+                <li class="cols-20">
                     <a href="javascript:void(0);">
                         <img src="/styles/images/default_icon.png"/>
                         Gran Empresa
                     </a>
                     <button data-ng-if="isOwner">Retirar</button>
                 </li>
-                <li class="cols-10">
+                <li class="cols-20">
                     <a href="javascript:void(0);">
                         <img src="/styles/images/default_icon.png"/>
                         Grupo Voluntarios unidos
@@ -123,7 +123,7 @@
         </div>
         <div class="tab-pane" id="aliados">
             <ul class="grid">
-                <li data-ng-repeat="ally in allyList" class="cols-10">
+                <li data-ng-repeat="ally in allyList" class="cols-20">
                     <a href="/usuario/{{ally.user.id}}">
                         <img src="/styles/images/default_icon.png"/>
                         {{ally.user.name}} {{ally.user.lastname}}
