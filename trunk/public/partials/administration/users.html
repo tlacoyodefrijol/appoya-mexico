@@ -29,10 +29,10 @@
         <input type="text" data-ng-model="fieldUser" ng-change="predictUser()" />
     </form>
     <ul class="grid">
-        <li data-ng-repeat="user in users" class="cols-10">
+        <li data-ng-repeat="user in users" class="cols-20">
             <a href="/usuario/{{user.id}}" class="clearfix">
                 <div class="left">
-                    <img src="/styles/images/{{user.avatar[0].id}}.png" />
+                    <img src="/styles/images/avatar/{{user.avatar[0].id}}.png" />
                     {{user.name}} {{user.lastname }}
                 </div>
             </a>
