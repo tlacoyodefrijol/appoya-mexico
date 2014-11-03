@@ -13,6 +13,9 @@
     <div id="formLogin" class="modal fade" role="dialog" aria-hidden="true" data-ng-if="!isLogged">
         <div class="modal-dialog">
             <div class="modal-content">
+                <div class="modal-header">
+                    Ingresar
+                </div>
                 <div class="modal-body clearfix">
                     <span class="alert error" data-ng-if="showMessage">{{message}}</span>
                     <form name="login" method="post" data-ng-submit="doLogin()">
@@ -31,6 +34,9 @@
     <div id="formAddUser" data-ng-controller="ControllerUsers" class="modal fade" data-ng-init="isWidget=true; role='voluntario'" data-ng-if="!isLogged">
         <div class="modal-dialog">
             <div class="modal-content">
+                <div class="modal-header">
+                    Registrarse
+                </div>
                 <div class="modal-body clearfix">
                     <span class="alert error" data-ng-if="showMessage">{{message}}</span>
                     <form id="quickAddUser" name="addUserForm" method="post" data-ng-submit="addUser()"

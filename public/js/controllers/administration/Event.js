@@ -9,11 +9,18 @@ app.controller('ControllerEvent', ['$scope', '$routeParams', 'FactoryEvents', 'F
         $scope.prizeAvailable = [];
         $scope.prizeSelected = {};
         $scope.role = {};
+        $scope.animId;
+
         $scope.roleListType = [
             {label: 'Voluntarios', id: 'voluntario'},
             {label: 'Maestros', id: 'maestro'},
             {label: 'Pintores', id: 'pintor'},
             {label: 'Cocineros', id: 'cocinero'}
+        ];
+
+        $scope.eventListType = [
+            {label: 'Reforestación', id: 0},
+            {label: 'Apoyo a colonia', id: 1}
         ];
 
         $scope.prizeAvailable = [
@@ -40,6 +47,14 @@ app.controller('ControllerEvent', ['$scope', '$routeParams', 'FactoryEvents', 'F
                 $scope.event = data.data;
                 $scope.roleList = $scope.event.roles;
                 $scope.prizeSelected = $scope.event.prizes;
+                if(typeof $scope.event.kind === 'undefined'){
+                    $scope.event.kind = $scope.eventListType[0];
+                    $scope.animId = 0;
+                }else{
+                    $scope.animId = $scope.event.kind[0].id;
+                    $scope.event.kind = $scope.eventListType[$scope.event.kind[0].id];
+                }
+                console.log($scope.animId)
                 for (var i = 0; i < $scope.prizeSelected.length; i++) {
                     setInitialSelection($scope.prizeSelected[i]);
                 }
@@ -139,6 +154,7 @@ app.controller('ControllerEvent', ['$scope', '$routeParams', 'FactoryEvents', 'F
                     prizes: _prizes,
                     creator: $scope.event.creator,
                     description: $scope.event.description,
+                    kind: [$scope.event.kind],
                     roles: $scope.roleList
                 };
                 FactoryEvents.updateOne(_grp)

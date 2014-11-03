@@ -11,6 +11,7 @@ var schemaEvent = new Schema({
         usermin: Number,
         roles: Array,
         prizes: Array,
+        kind: Array,
         description: String
     },
     {collection:"Event"});

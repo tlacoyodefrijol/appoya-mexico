@@ -16,23 +16,6 @@
         </a>
         <button data-ng-click="deleteEvent(events[0].id)" data-ng-if="isCreator(events[0].creator)" class="right">Eliminar</button>
     </div>
-
-    <div data-ng-if="enableAddEvent">
-        <h3>Agregar evento</h3>
-
-        <form name="addEventForm" method="post" data-ng-submit="addEvent()">
-            <label>Nombre</label>
-            <input type="text" data-ng-model="event.name"/>
-            <label>Fecha de inicio</label>
-            <input type="date" name="eventDateBegin" data-ng-model="event.beginning" required/>
-            <label>Fecha de fin</label>
-            <input type="date" name="eventDateEnd" data-ng-model="event.end" required/>
-            <label>Voluntarios necesarios</label>
-            <input type="number" name="eventDateEnd" data-ng-model="event.usermin" required/>
-            <button type="submit">Agregar</button>
-        </form>
-        {{messageEvent}}<br/>
-    </div>
     <ul id="gridEvents" class="grid">
         <li data-ng-repeat="event in events" class="cols-4">
             <a href="/evento/{{event.id}}">
@@ -50,12 +33,28 @@
             <button data-ng-click="deleteEvent(event.id)" data-ng-if="isCreator(event.creator)" class="right">Eliminar</button>
         </li>
     </ul>
-</div>
+    <div data-ng-if="enableAddEvent">
+        <h3>Agregar evento</h3>
+
+        <form name="addEventForm" method="post" data-ng-submit="addEvent()">
+            <label>Nombre</label>
+            <input type="text" data-ng-model="event.name"/>
+            <label>Fecha de inicio</label>
+            <input type="date" name="eventDateBegin" data-ng-model="event.beginning" required/>
+            <label>Fecha de fin</label>
+            <input type="date" name="eventDateEnd" data-ng-model="event.end" required/>
+            <label>Voluntarios necesarios</label>
+            <input type="number" name="eventDateEnd" data-ng-model="event.usermin" required/>
+            <button type="submit">Agregar</button>
+        </form>
+        {{messageEvent}}<br/>
+    </div>
+
 <script src="/libs/easeljs-0.7.1.min.js"></script>
 <script src="/libs/tweenjs-0.5.1.min.js"></script>
 <script src="/libs/movieclip-0.7.1.min.js"></script>
 <script src="/libs/preloadjs-0.4.1.min.js"></script>
-<script src="/js/animacion.js"></script>
+<script src="/js/animacion0.js"></script>
 <script type="text/javascript">
     $(function(){
         var canvas, stage, exportRoot;
@@ -91,3 +90,4 @@
     });
 
 </script>
+</div>
