@@ -1,7 +1,9 @@
 <div id="contentContainer" data-ng-controller="ControllerEvent" data-ng-init="updateLists()">
     <h2>{{eventTitle}}</h2>
 
-    <canvas id="canvasAnimation" width="960" height="240" style="background-color:#FFFFFF"></canvas>
+    <canvas id="canvasAnimation"
+            width="960" height="240"
+            style="background-color:#FFFFFF"></canvas>
 
     <div data-ng-if="isOwner">
         <h3>Editar datos del evento</h3>
@@ -15,21 +17,22 @@
                 <input type="text" name="eventDateBegin" data-ng-model="event.beginning" required/>
                 <label>Fecha de fin</label>
                 <input type="text" name="eventDateEnd" data-ng-model="event.end" required/>
+                <label>Tipo de evento</label>
+                <select data-ng-model="event.kind"
+                        data-ng-options="type.label for type in eventListType">
+                </select>
                 <label class="clearBoth">Descripción</label>
                 <textarea data-ng-model="event.description"></textarea>
             </fieldset>
-            <fieldset>
+            <fieldset class="roles">
                 <h4>Roles necesarios</h4>
-                <label>Cantidad</label>
+                <label>Cantidad y tipo de voluntario</label>
                 <input type="number" data-ng-model="role.quantity" data-ng-init="role.quantity = 0"/>
-                <label>Tipo</label>
                 <select data-ng-model="role.type"
                         data-ng-options="role.label for role in roleListType"
                         data-ng-init="role.type = roleListType[0]">
                 </select>
                 <button data-ng-click="addRole()" class="interaction">Agregar role</button>
-                <a href="javascript:void(0)" data-ng-if="event.usermin>=100" class="button interactionAlt">Solicitar
-                    premio personalizado</a>
                 <ul class="filterList">
                     <li data-ng-repeat="role in roleList">{{role.quantity}} {{role.type.label}}
                         <button class="error" data-ng-click="removeRole($index)">Eliminar</button>
@@ -46,30 +49,12 @@
                                                                                            ng-checked="prize.isChecked"/>{{prize.name}}</label>
                     </li>
                 </ul>
+                <a href="javascript:void(0)" data-ng-if="event.usermin>=100" class="button interactionAlt">Solicitar
+                    premio personalizado</a>
             </fieldset>
             <button data-ng-click="updateInfo()" class="action">Guardar</button>
             {{messageUpdate}}
         </form>
-        <form>
-            <h3>Buscar usuario por:</h3>
-            <fieldset>
-                <select data-ng-model="profileType.option"
-                        data-ng-options="option.name for option in profileTypeOptions"
-                        data-ng-change="clearFields()">
-                </select>
-            </fieldset>
-            <fieldset>
-                <label>Nombre del usuario</label>
-                <input type="text" data-ng-model="fieldUser.text" ng-change="predictUser()"/>
-            </fieldset>
-        </form>
-        {{messageSearch}}
-        <ul id="menuEnrolled">
-            <li data-ng-repeat="user in availableUsers"><a href="/usuario/{{user.id}}">{{user.name}}
-                {{user.lastname}}</a>
-                <button data-ng-click="enrollUser(user)">Enrolar</button>
-            </li>
-        </ul>
     </div>
     <div id="eventInfo" data-ng-if="!isOwner">
         <h3 class="flag">Descripción</h3>
@@ -147,13 +132,35 @@
                 </li>
             </ul>
         </div>
+        <div data-ng-if="isOwner">
+            <form>
+                <h3>Buscar usuario por:</h3>
+                <fieldset>
+                    <select data-ng-model="profileType.option"
+                            data-ng-options="option.name for option in profileTypeOptions"
+                            data-ng-change="clearFields()">
+                    </select>
+                </fieldset>
+                <fieldset>
+                    <label>Nombre del usuario</label>
+                    <input type="text" data-ng-model="fieldUser.text" ng-change="predictUser()"/>
+                </fieldset>
+            </form>
+            {{messageSearch}}
+            <ul id="menuEnrolled">
+                <li data-ng-repeat="user in availableUsers"><a href="/usuario/{{user.id}}">{{user.name}}
+                    {{user.lastname}}</a>
+                    <button data-ng-click="enrollUser(user)">Enrolar</button>
+                </li>
+            </ul>
+        </div>
     </div>
-</div>
 <script src="/libs/easeljs-0.7.1.min.js"></script>
 <script src="/libs/tweenjs-0.5.1.min.js"></script>
 <script src="/libs/movieclip-0.7.1.min.js"></script>
 <script src="/libs/preloadjs-0.4.1.min.js"></script>
-<script src="/js/animacion.js"></script>
+<script data-ng-if="animId==0" src="/js/animacion0.js"></script>
+<script data-ng-if="animId==1" src="/js/animacion1.js"></script>
 <script type="text/javascript">
     $(function(){
         var canvas, stage, exportRoot;
@@ -189,3 +196,4 @@
     });
 
 </script>
+</div>
