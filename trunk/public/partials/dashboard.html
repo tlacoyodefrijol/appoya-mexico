@@ -7,7 +7,7 @@
         </section>
     </div>
     <div data-ng-controller="ControllerEvents" data-ng-init="init()">
-        <h2>Eventos</h2>
+        <h2 class="flag">Eventos</h2>
 
         <ul id="gridEvents" class="grid">
             <li data-ng-repeat="event in events" class="cols-4">
@@ -27,5 +27,21 @@
             </li>
         </ul>
     </div>
-    <h2>Noticias</h2>
+    <h2 class="flag">Noticias</h2>
+    <ul class="newsList">
+        <li>
+            <img src="/styles/images/default_icon.png" />
+            <div class="news">
+                <h3>Título de la noticia</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut felis tempor, volutpat leo eu, tempus orci. Mauris tristique non nibh nec condimentum. Integer nibh dolor, auctor a lacus sed, tristique placerat odio. Pellentesque nec nibh quis lectus hendrerit porta id eget augue. Sed interdum massa ut bibendum posuere. Vestibulum in massa nec mauris finibus imperdiet eu sed tellus. Praesent at fermentum nunc, id semper lacus. Aenean accumsan justo eu fermentum porta. Nulla a nibh sed elit dignissim ultricies. Nullam volutpat ullamcorper eros, elementum finibus odio placerat lobortis. Aliquam quis risus at magna suscipit vestibulum vitae nec felis. Maecenas a mauris venenatis, condimentum lorem sed, laoreet tellus.</p>
+            </div>
+        </li>
+        <li>
+            <img src="/styles/images/default_icon.png" />
+            <div class="news">
+                <h3>Título de la noticia</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut felis tempor, volutpat leo eu, tempus orci. Mauris tristique non nibh nec condimentum. Integer nibh dolor, auctor a lacus sed, tristique placerat odio. Pellentesque nec nibh quis lectus hendrerit porta id eget augue. Sed interdum massa ut bibendum posuere. Vestibulum in massa nec mauris finibus imperdiet eu sed tellus. Praesent at fermentum nunc, id semper lacus. Aenean accumsan justo eu fermentum porta. Nulla a nibh sed elit dignissim ultricies. Nullam volutpat ullamcorper eros, elementum finibus odio placerat lobortis. Aliquam quis risus at magna suscipit vestibulum vitae nec felis. Maecenas a mauris venenatis, condimentum lorem sed, laoreet tellus.</p>
+            </div>
+        </li>
+    </ul>
 </div>
