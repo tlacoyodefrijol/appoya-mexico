@@ -58,6 +58,11 @@ app.controller('ControllerUsers', ['$window', '$rootScope', '$scope', '$routePar
                 search: _name
             }).success(function (data) {
                 $scope.users = data.data;
+                for(var i=0; i<$scope.users.length; i++){
+                    if(typeof $scope.users[i].avatar[0] === 'undefined' || $scope.users[i].avatar[0] === undefined || $scope.users[i].avatar[0] === ''){
+                        $scope.users[i].avatar[0] = {id: 'a000'};
+                    }
+                }
             }).error(function (data) {
                 $scope.message = 'No se encontraron resultados';
             });
