@@ -4,6 +4,7 @@
             <a href="/usuarios/voluntario" class="statistic"><span>{{countVolunteers}}</span> Voluntarios</a>
             <a href="/usuarios/aliado" class="statistic"><span>{{countAllies}}</span> Aliados</a>
             <a href="/eventos" class="statistic"><span>{{countEvents}}</span> Eventos</a>
+            <canvas id="canvasAnimation" width="960" height="320" style="background-color:#FFFFFF"></canvas>
         </section>
     </div>
     <div data-ng-controller="ControllerEvents" data-ng-init="init()">
@@ -12,7 +13,7 @@
         <ul id="gridEvents" class="grid">
             <li data-ng-repeat="event in events" class="cols-4">
                 <a href="/evento/{{event.id}}">
-                    <img src="/styles/images/reforestaThumb.png" alt="{{event.name}}"/>
+                    <img src="/styles/images/event_kind{{event.kind[0].id}}.png" alt="{{event.name}}"/>
 
                     <div class="info">
                         <div class="flag"><span class="big">{{event.usermin}}</span> voluntarios necesarios</div>
@@ -44,4 +45,44 @@
             </div>
         </li>
     </ul>
+<script src="/libs/easeljs-0.7.1.min.js"></script>
+<script src="/libs/tweenjs-0.5.1.min.js"></script>
+<script src="/libs/movieclip-0.7.1.min.js"></script>
+<script src="/libs/preloadjs-0.4.1.min.js"></script>
+<script src="/js/appoyaHome.js"></script>
+<script type="text/javascript">
+    $(function(){
+        var canvas, stage, exportRoot;
+        function init() {
+            canvas = document.getElementById('canvasAnimation');
+            var images = images || {};
+
+            var loader = new createjs.LoadQueue(false);
+            loader.addEventListener("fileload", handleFileLoad);
+            loader.addEventListener("complete", handleComplete);
+            loader.loadManifest(lib.properties.manifest);
+        }
+
+        function handleFileLoad(evt) {
+            if (evt.item.type == "image") {
+                images[evt.item.id] = evt.result;
+            }
+        }
+
+        function handleComplete() {
+            exportRoot = new lib.appoyahome();
+
+            stage = new createjs.Stage(canvas);
+            stage.addChild(exportRoot);
+            stage.update();
+
+            createjs.Ticker.setFPS(lib.properties.fps);
+            createjs.Ticker.addEventListener("tick", stage);
+        }
+        $(document).ready(function(){
+            init();
+        });
+    });
+
+</script>
 </div>
