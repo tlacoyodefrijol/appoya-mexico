@@ -46,7 +46,7 @@
         <ul id="gridEvents" class="grid">
             <li data-ng-repeat="event in events" class="cols-4">
                 <a href="/evento/{{event.event.id}}">
-                    <img src="/styles/images/reforestaThumb.png" alt="{{event.event.name}}"/>
+                    <img src="/styles/images/event_kind{{event.event.kind[0].id}}.png" alt="{{event.event.name}}"/>
 
                     <div class="info">
                         <div class="flag"><span class="big">{{event.event.usermin}}</span> voluntarios necesarios</div>

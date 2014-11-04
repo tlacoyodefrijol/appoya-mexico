@@ -47,7 +47,6 @@ app.controller('ControllerEvent', ['$scope', '$routeParams', 'FactoryEvents', 'F
                 $scope.event = data.data;
                 $scope.roleList = $scope.event.roles;
                 $scope.prizeSelected = $scope.event.prizes;
-                console.log($scope.event.kind)
                 if(typeof $scope.event.kind[0] === 'undefined' || $scope.event.kind[0]=== undefined || $scope.event.kind[0]=== ''){
                     $scope.event.kind = $scope.eventListType[0];
                     $scope.animId = 0;
